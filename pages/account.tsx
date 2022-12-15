@@ -11,12 +11,15 @@ import Navbar from "../components/Navbar";
 export default function Account() {
     const supabase = useSupabaseClient();
     const session = useSession();
-    console.log(session);
+
     const user = useUser();
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [username, setUsername] = useState(null);
-    const [website, setWebsite] = useState(null);
+    const [bodyweight, setBodyweight] = useState(null);
+    const [squat, setSquat] = useState(null);
+    const [bench, setBench] = useState(null);
+    const [deadlift, setDeadlift] = useState(null);
     const [avatar_url, setAvatarUrl] = useState(null);
 
     useEffect(() => {
@@ -33,7 +36,9 @@ export default function Account() {
 
             let { data, error, status } = await supabase
                 .from("profiles")
-                .select(`username, website, avatar_url`)
+                .select(
+                    `username, bodyweight, squat, bench, deadlift, avatar_url`
+                )
                 .eq("id", user.id)
                 .single();
 
@@ -43,7 +48,10 @@ export default function Account() {
 
             if (data) {
                 setUsername(data.username);
-                setWebsite(data.website);
+                setBodyweight(data.bodyweight);
+                setSquat(data.squat);
+                setBench(data.bench);
+                setDeadlift(data.deadlift);
                 setAvatarUrl(data.avatar_url);
             }
         } catch (error) {
@@ -53,14 +61,24 @@ export default function Account() {
         }
     }
 
-    async function updateProfile({ username, website, avatar_url }) {
+    async function updateProfile({
+        username,
+        bodyweight,
+        squat,
+        bench,
+        deadlift,
+        avatar_url,
+    }) {
         try {
             setLoading(true);
 
             const updates = {
                 id: user.id,
                 username,
-                website,
+                bodyweight,
+                squat,
+                bench,
+                deadlift,
                 avatar_url,
                 updated_at: new Date().toISOString(),
             };
@@ -83,7 +101,7 @@ export default function Account() {
                 {session ? (
                     <div className="form-widget">
                         <div>
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="email">Email: </label>
                             <input
                                 id="email"
                                 type="text"
@@ -92,7 +110,7 @@ export default function Account() {
                             />
                         </div>
                         <div>
-                            <label htmlFor="username">Username</label>
+                            <label htmlFor="username">Username: </label>
                             <input
                                 id="username"
                                 type="text"
@@ -101,22 +119,51 @@ export default function Account() {
                             />
                         </div>
                         <div>
-                            <label htmlFor="website">Website</label>
+                            <label htmlFor="bodyweight">Bodyweight: </label>
                             <input
-                                id="website"
-                                type="website"
-                                value={website || ""}
-                                onChange={(e) => setWebsite(e.target.value)}
+                                id="bodyweight"
+                                type="bodyweight"
+                                value={bodyweight || ""}
+                                onChange={(e) => setBodyweight(e.target.value)}
                             />
                         </div>
-
+                        <div>
+                            <label htmlFor="squat">Squat: </label>
+                            <input
+                                id="squat"
+                                type="squat"
+                                value={squat || ""}
+                                onChange={(e) => setSquat(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="bench">Bench: </label>
+                            <input
+                                id="bench"
+                                type="bench"
+                                value={bench || ""}
+                                onChange={(e) => setBench(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="deadlift">Deadlift: </label>
+                            <input
+                                id="deadlift"
+                                type="deadlift"
+                                value={deadlift || ""}
+                                onChange={(e) => setDeadlift(e.target.value)}
+                            />
+                        </div>
                         <div>
                             <button
                                 className="button primary block"
                                 onClick={() =>
                                     updateProfile({
                                         username,
-                                        website,
+                                        bodyweight,
+                                        squat,
+                                        bench,
+                                        deadlift,
                                         avatar_url,
                                     })
                                 }
