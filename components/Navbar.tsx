@@ -1,14 +1,16 @@
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
-import { supabase } from "../utils/supabase";
 
 const Navbar = ({ session }) => {
+    const supabase = useSupabaseClient();
+    console.log(session);
     return (
         <div className={styles.container}>
             <div>
                 <p className={styles.title}>Mini Lifts Tracker</p>
             </div>
-            {session?.user ? (
+            {session ? (
                 <ul className={styles.navContent}>
                     <Link href="/">
                         <li className={styles.name}>Home</li>
@@ -31,8 +33,8 @@ const Navbar = ({ session }) => {
                     <Link href="/account">
                         <li className={styles.buttons}>Account</li>
                     </Link>
-                    <Link href="/signup">
-                        <li className={styles.buttons}>Signup</li>
+                    <Link href="/login">
+                        <li className={styles.buttons}>Login</li>
                     </Link>
                 </ul>
             )}
