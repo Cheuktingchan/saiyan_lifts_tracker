@@ -1,9 +1,13 @@
 .container {
-    color: #d8d8d8;
+    background-color: #6eb720;
+    color: black;
+    padding-left: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 3rem;
+    height: 64px;
+    font-family: Saiyan-Sans;
+    border-bottom: 2px solid black;
 }
 
 .navContent {
@@ -12,23 +16,33 @@
 }
 
 .title {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 2px solid black;
     font-size: 1.5rem;
     font-weight: 500;
+    height: 64px;
+    display: flex;
+    align-items: center;
 }
 
 .name {
     margin-right: 2rem;
-    color: #f35815;
+    color: black;
     cursor: pointer;
 }
 
 .buttons {
-    border: 1px solid #f35815;
+    border-radius: 0px;
+    border-left: 2px solid black;
+    border-right: transparent;
+    border-bottom: transparent;
+    border-top: transparent;
+    height: 64px;
     background-color: transparent;
-    color: #d8d8d8;
-    padding: 0.5rem 2rem;
-    border-radius: 0.4rem;
+    color: black;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    margin-right: 1.5rem;
+    font-family: Saiyan-Sans;
+    font-size: 1rem;
 }

@@ -6,10 +6,11 @@ const Navbar = ({ session }) => {
     const supabase = useSupabaseClient();
     return (
         <div className={styles.container}>
+            <Link href="/">
+                <img src="../logo.svg" alt="Logo" height="48px"></img>
+            </Link>
             <div>
-                <Link href="/">
-                    <p className={styles.title}>Mini Lifts Tracker</p>{" "}
-                </Link>
+                <p className={styles.title}>Saiyan Lifts Tracker</p>{" "}
             </div>
             {session ? (
                 <ul className={styles.navContent}>
@@ -20,13 +21,13 @@ const Navbar = ({ session }) => {
                         Logout
                     </button>
                     <Link href="/account">
-                        <li className={styles.buttons}>Account</li>
+                        <button className={styles.buttons}>Account</button>
                     </Link>
                 </ul>
             ) : (
                 <ul className={styles.navContent}>
                     <Link href="/login">
-                        <li className={styles.buttons}>Login</li>
+                        <button className={styles.buttons}>Login</button>
                     </Link>
                 </ul>
             )}

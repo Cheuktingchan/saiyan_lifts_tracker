@@ -7,6 +7,17 @@ import {
 } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
+import styled from "styled-components";
+
+const S = {
+    div: styled.div`
+        width: 100%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        align-items: center;
+        text-align: center;
+    `,
+};
 
 export default function Account() {
     const supabase = useSupabaseClient();
@@ -100,61 +111,67 @@ export default function Account() {
             <div>
                 {session ? (
                     <div className="form-widget">
-                        <div>
+                        <S.div>
                             <label htmlFor="email">Email: </label>
+                            <br></br>
                             <input
                                 id="email"
                                 type="text"
                                 value={session.user.email}
                                 disabled
                             />
-                        </div>
-                        <div>
+                        </S.div>
+                        <S.div>
                             <label htmlFor="username">Username: </label>
+                            <br></br>
                             <input
                                 id="username"
                                 type="text"
                                 value={username || ""}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
-                        </div>
-                        <div>
+                        </S.div>
+                        <S.div>
                             <label htmlFor="bodyweight">Bodyweight: </label>
+                            <br></br>
                             <input
                                 id="bodyweight"
                                 type="bodyweight"
                                 value={bodyweight || ""}
                                 onChange={(e) => setBodyweight(e.target.value)}
                             />
-                        </div>
-                        <div>
+                        </S.div>
+                        <S.div>
                             <label htmlFor="squat">Squat: </label>
+                            <br></br>
                             <input
                                 id="squat"
                                 type="squat"
                                 value={squat || ""}
                                 onChange={(e) => setSquat(e.target.value)}
                             />
-                        </div>
-                        <div>
+                        </S.div>
+                        <S.div>
                             <label htmlFor="bench">Bench: </label>
+                            <br></br>
                             <input
                                 id="bench"
                                 type="bench"
                                 value={bench || ""}
                                 onChange={(e) => setBench(e.target.value)}
                             />
-                        </div>
-                        <div>
+                        </S.div>
+                        <S.div>
                             <label htmlFor="deadlift">Deadlift: </label>
+                            <br></br>
                             <input
                                 id="deadlift"
                                 type="deadlift"
                                 value={deadlift || ""}
                                 onChange={(e) => setDeadlift(e.target.value)}
                             />
-                        </div>
-                        <div>
+                        </S.div>
+                        <S.div>
                             <button
                                 className="button primary block"
                                 onClick={() =>
@@ -171,16 +188,16 @@ export default function Account() {
                             >
                                 {loading ? "Loading ..." : "Update"}
                             </button>
-                        </div>
+                        </S.div>
 
-                        <div>
+                        <S.div>
                             <button
                                 className="button block"
                                 onClick={() => supabase.auth.signOut()}
                             >
                                 Sign Out
                             </button>
-                        </div>
+                        </S.div>
                     </div>
                 ) : (
                     <div></div>

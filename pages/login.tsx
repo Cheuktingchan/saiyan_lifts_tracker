@@ -14,12 +14,39 @@ const Login = () => {
     return (
         <>
             <Navbar session={session}></Navbar>
-            <div className="container" style={{ padding: "50px 0 100px 0" }}>
+            <div
+                className="container"
+                style={{ padding: "50px 50px 100px 50px" }}
+            >
                 {!session ? (
                     <Auth
                         supabaseClient={supabase}
-                        appearance={{ theme: ThemeSupa }}
-                        theme="dark"
+                        appearance={{
+                            theme: ThemeSupa,
+                            variables: {
+                                default: {
+                                    colors: {
+                                        brand: "#8e3f9b",
+                                        brandAccent: "#8e3f9b",
+                                    },
+                                },
+                            },
+                            style: {
+                                button: {
+                                    fontFamily: "Saiyan-Sans",
+                                    fontSize: "1.5rem",
+                                },
+                                container: {
+                                    fontFamily: "Saiyan-Sans",
+                                    fontSize: "1.5rem",
+                                },
+                                label: {
+                                    fontFamily: "Saiyan-Sans",
+                                    fontSize: "1.5rem",
+                                    color: "black",
+                                },
+                            },
+                        }}
                     />
                 ) : (
                     <div></div>
