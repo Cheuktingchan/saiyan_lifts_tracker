@@ -26,51 +26,47 @@ export default function Account() {
     const user = useUser();
     const router = useRouter();
     const [loading, setLoading] = useState(true);
-    const [username, setUsername] = useState(null);
-    const [bodyweight, setBodyweight] = useState(null);
-    const [squat, setSquat] = useState(null);
-    const [bench, setBench] = useState(null);
-    const [deadlift, setDeadlift] = useState(null);
-    const [avatar_url, setAvatarUrl] = useState(null);
+    const [username, setUsername] = useState<string | null>(null);
+    const [bodyweight, setBodyweight] = useState<string | null>(null);
+    const [squat, setSquat] = useState<string | null>(null);
+    const [bench, setBench] = useState<string | null>(null);
+    const [deadlift, setDeadlift] = useState<string | null>(null);
+    const [avatar_url, setAvatarUrl] = useState<string | null>(null);
 
     useEffect(() => {
-        getProfile();
-    }, [session]);
+        async function getProfile() {
+            try {
+                setLoading(true);
 
-    useEffect(() => {
-        getProfile();
-    }, [session]);
+                let { data, error, status } = await supabase
+                    .from("profiles")
+                    .select(
+                        `username, bodyweight, squat, bench, deadlift, avatar_url`
+                    )
+                    .eq("id", user?.id)
+                    .single();
 
-    async function getProfile() {
-        try {
-            setLoading(true);
+                if (error && status !== 406) {
+                    throw error;
+                }
 
-            let { data, error, status } = await supabase
-                .from("profiles")
-                .select(
-                    `username, bodyweight, squat, bench, deadlift, avatar_url`
-                )
-                .eq("id", user.id)
-                .single();
-
-            if (error && status !== 406) {
-                throw error;
+                if (data) {
+                    setUsername(data.username);
+                    setBodyweight(data.bodyweight);
+                    setSquat(data.squat);
+                    setBench(data.bench);
+                    setDeadlift(data.deadlift);
+                    setAvatarUrl(data.avatar_url);
+                }
+            } catch (error) {
+                router.push("/login");
+            } finally {
+                setLoading(false);
             }
-
-            if (data) {
-                setUsername(data.username);
-                setBodyweight(data.bodyweight);
-                setSquat(data.squat);
-                setBench(data.bench);
-                setDeadlift(data.deadlift);
-                setAvatarUrl(data.avatar_url);
-            }
-        } catch (error) {
-            router.push("/login");
-        } finally {
-            setLoading(false);
         }
-    }
+
+        getProfile();
+    }, [session, router, supabase, user?.id]);
 
     async function updateProfile({
         username,
@@ -79,12 +75,19 @@ export default function Account() {
         bench,
         deadlift,
         avatar_url,
+    }: {
+        username: string | null;
+        bodyweight: string | null;
+        squat: string | null;
+        bench: string | null;
+        deadlift: string | null;
+        avatar_url: string | null;
     }) {
         try {
             setLoading(true);
 
             const updates = {
-                id: user.id,
+                id: user?.id,
                 username,
                 bodyweight,
                 squat,

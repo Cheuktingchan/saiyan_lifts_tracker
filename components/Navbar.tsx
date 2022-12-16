@@ -1,13 +1,15 @@
-import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { Session, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
+import Image from "next/image";
+import { relative } from "path";
 
-const Navbar = ({ session }) => {
+const Navbar = ({ session }: { session: Session | null }) => {
     const supabase = useSupabaseClient();
     return (
         <div className={styles.container}>
             <Link href="/">
-                <img src="../logo.svg" alt="Logo" height="48px"></img>
+                <Image src="/logo.svg" alt="Logo" height="48" width="48" />
             </Link>
             <div>
                 <p className={styles.title}>Saiyan Lifts Tracker</p>{" "}
