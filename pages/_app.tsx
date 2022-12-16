@@ -20,6 +20,18 @@ export default function App({ Component, pageProps }: AppProps) {
             >
                 <Component {...pageProps} />
             </SessionContextProvider>
+            <footer
+                style={{
+                    backgroundColor: "#8e3f9b",
+                    position: "fixed",
+                    bottom: "0px",
+                    left: "0px",
+                    right: "0px",
+                    height: "64px",
+                    marginBottom: "0px",
+                    borderTop: "2px solid black",
+                }}
+            ></footer>
         </>
     );
 }
