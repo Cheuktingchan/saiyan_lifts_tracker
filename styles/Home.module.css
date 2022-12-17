@@ -1,5 +1,7 @@
 .container {
+    margin-top: 1rem;
     padding: 0 2rem;
+    margin-left: 5px;
 }
 
 .main {

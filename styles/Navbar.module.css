@@ -4,12 +4,12 @@
     width: 100%;
     background-color: #6eb720;
     color: black;
-    padding-left: 1rem;
+    padding-left: 0.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 64px;
-    font-family: Saiyan-Sans;
+    font-family: Monofonto, sans-serif;
     border-bottom: 2px solid black;
 }
 
@@ -19,10 +19,10 @@
 }
 
 .title {
-    margin-left: 1rem;
-    padding-left: 1rem;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
     border-left: 2px solid black;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 500;
     height: 64px;
     display: flex;
@@ -46,6 +46,6 @@
     color: black;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    font-family: Saiyan-Sans;
+    font-family: Monofonto, sans-serif;
     font-size: 1rem;
 }

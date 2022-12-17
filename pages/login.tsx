@@ -33,15 +33,15 @@ const Login = () => {
                             },
                             style: {
                                 button: {
-                                    fontFamily: "Saiyan-Sans",
+                                    fontFamily: "Monofonto",
                                     fontSize: "1.5rem",
                                 },
                                 container: {
-                                    fontFamily: "Saiyan-Sans",
+                                    fontFamily: "Monofonto",
                                     fontSize: "1.5rem",
                                 },
                                 label: {
-                                    fontFamily: "Saiyan-Sans",
+                                    fontFamily: "Monofonto",
                                     fontSize: "1.5rem",
                                     color: "black",
                                 },

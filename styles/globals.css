@@ -3,7 +3,7 @@ body {
     padding-top: 32px;
     padding-bottom: 32px;
     margin: 0;
-    font-family: Saiyan-Sans, sans-serif;
+    font-family: Monofonto, sans-serif;
 }
 
 a {
@@ -17,7 +17,7 @@ a {
 
 html {
     color-scheme: dark;
-    font-family: Saiyan-Sans, sans-serif;
+    font-family: Monofonto, sans-serif;
 }
 body {
     height: 100%;
@@ -31,7 +31,7 @@ button {
     padding: 0.5rem;
     border-radius: 3px;
     color-scheme: dark;
-    font-family: Saiyan-Sans, sans-serif;
+    font-family: Monofonto, sans-serif;
     background: #8e3f9b;
     font-size: 1.5rem;
 }
@@ -41,12 +41,12 @@ input {
     padding: 0.5rem;
     border-radius: 3px;
     color-scheme: dark;
-    font-family: Saiyan-Sans, sans-serif;
+    font-family: Monofonto, sans-serif;
     background: #b4664f;
     font-size: 1.5rem;
 }
 
 @font-face {
-    font-family: "Saiyan-Sans";
-    src: url("~/fonts/Saiyan-Sans.ttf");
+    font-family: "Monofonto";
+    src: url("~/fonts/monofonto rg.otf");
 }
