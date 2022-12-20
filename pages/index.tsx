@@ -6,10 +6,11 @@ import {
     useSupabaseClient,
     useUser,
 } from "@supabase/auth-helpers-react";
-import Account from "./account";
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import ExerciseCard from "../components/ExerciseCard";
+import Link from "next/link";
 
 const Home = () => {
     const supabase = useSupabaseClient();
@@ -17,7 +18,36 @@ const Home = () => {
     const user = useUser();
     const router = useRouter();
     const [username, setUsername] = useState<string | null>(null);
+    const [exercises, setExercises] = useState<any[]>([]); // list of exercises
     const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function getExercises() {
+            try {
+                setLoading(true);
+
+                let { data, error, status } = await supabase
+                    .from("workouts")
+                    .select(`*`)
+                    .eq("user_id", user?.id)
+                    .order("inserted_at", { ascending: false });
+                if (error && status !== 406) {
+                    throw error;
+                }
+
+                if (data) {
+                    console.log(user?.id);
+                    setExercises(data);
+                }
+            } catch (error) {
+                console.log("No exercises");
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        getExercises();
+    }, []);
 
     useEffect(() => {
         async function getUsername() {
@@ -59,6 +89,32 @@ const Home = () => {
                     Welcome lifter. Go to account and enter your details!
                 </div>
             )}
+            <div className={styles.container}>
+                <Link href="/create">
+                    <button
+                        className={styles.button}
+                        style={{
+                            textAlign: "center",
+                            marginTop: "5%",
+                            marginBottom: "5%",
+                        }}
+                    >
+                        Create A New<br></br> Exercise
+                    </button>
+                </Link>
+            </div>
+            <div className={styles.container}>
+                {exercises?.length === 0 ? (
+                    <div>
+                        <p>There are no exercises yet</p>
+                    </div>
+                ) : (
+                    <div className={styles.container}>
+                        <p>Here are your exercises:</p>
+                        <ExerciseCard data={exercises} />
+                    </div>
+                )}
+            </div>
         </>
     );
 };
