@@ -14,13 +14,14 @@ const Create = () => {
         title: "",
         loads: "",
         reps: "",
+        sets: "",
     };
     const supabase = useSupabaseClient();
     const user = useUser();
     const router = useRouter();
     const [exerciseData, setExerciseData] = useState(initialState);
 
-    const { title, loads, reps } = exerciseData;
+    const { title, loads, reps, sets } = exerciseData;
 
     const handleChange = (e: any) => {
         setExerciseData({ ...exerciseData, [e.target.name]: e.target.value });
@@ -33,10 +34,10 @@ const Create = () => {
                 title,
                 loads,
                 reps,
+                sets,
                 user_id: user?.id,
             })
             .single();
-        alert("Workout created successfully");
         setExerciseData(initialState);
         router.push("/");
     };
@@ -47,7 +48,7 @@ const Create = () => {
             <div className={styles.container}>
                 <div className={styles.form}>
                     <p className={styles.title}>Create a New Exercise</p>
-                    <label className={styles.label}>Title:</label>
+                    <label className={styles.label}>Exercise:</label>
                     <input
                         type="text"
                         name="title"
@@ -74,7 +75,15 @@ const Create = () => {
                         className={styles.input}
                         placeholder="Enter number of reps"
                     />
-
+                    <label className={styles.label}>Sets:</label>
+                    <input
+                        type="text"
+                        name="sets"
+                        value={sets}
+                        onChange={handleChange}
+                        className={styles.input}
+                        placeholder="Enter number of sets"
+                    />
                     <button className={styles.button} onClick={createExercise}>
                         Create Exercise
                     </button>

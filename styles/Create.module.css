@@ -12,6 +12,7 @@
 }
 
 .form {
+    background-color: #6eb720;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -37,8 +38,14 @@
     border: 2px solid black;
     border-radius: 0.4rem;
     outline: none;
-    background-color: transparent;
-    color: black;
+    background-color: #579031;
+    color: white;
+}
+
+.input::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 0.5; /* Firefox */
 }
 
 .button {
