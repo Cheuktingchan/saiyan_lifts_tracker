@@ -99,7 +99,7 @@ const Home = () => {
                             marginBottom: "5%",
                         }}
                     >
-                        Create A New<br></br> Exercise
+                        Create New<br></br> Exercise
                     </button>
                 </Link>
             </div>

@@ -1,0 +1,46 @@
+.container {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 70%;
+    border: 2px solid black;
+    border-radius: 0px;
+}
+
+.title {
+    color: black;
+    margin-bottom: 0.4rem;
+}
+.label {
+    color: black;
+}
+.input {
+    width: 80%;
+    height: 2rem;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border: 2px solid black;
+    border-radius: 0.4rem;
+    outline: none;
+    background-color: transparent;
+    color: black;
+}
+
+.button {
+    margin-bottom: 32px;
+}
