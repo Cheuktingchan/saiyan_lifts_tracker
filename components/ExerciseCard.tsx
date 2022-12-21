@@ -3,8 +3,15 @@ import styles from "../styles/ExerciseCard.module.css";
 import { parseISO } from "date-fns";
 import { format } from "date-fns";
 import { FiEdit } from "react-icons/fi";
+import { BsTrash } from "react-icons/bs";
 
-const ExerciseCard = ({ data }: { data: any[] }) => {
+const ExerciseCard = ({
+    data,
+    handleDelete,
+}: {
+    data: any[];
+    handleDelete: any;
+}) => {
     console.log(data);
     return (
         <div className={styles.exerciseContainer}>
@@ -29,7 +36,7 @@ const ExerciseCard = ({ data }: { data: any[] }) => {
                         style={{
                             height: "28px",
                             position: "absolute",
-                            right: "-14px",
+                            left: "-14px",
                             top: "-14px",
                             border: "2px solid black",
                             backgroundColor: "red",
@@ -39,6 +46,20 @@ const ExerciseCard = ({ data }: { data: any[] }) => {
                         <Link href={`/edit/${item.id}`}>
                             <FiEdit />
                         </Link>
+                    </div>
+                    <div
+                        style={{
+                            height: "28px",
+                            position: "absolute",
+                            right: "-14px",
+                            top: "-14px",
+                            border: "2px solid black",
+                            backgroundColor: "red",
+                            borderRadius: "5px",
+                        }}
+                        onClick={() => handleDelete(item.id)}
+                    >
+                        <BsTrash />
                     </div>
                 </div>
             ))}

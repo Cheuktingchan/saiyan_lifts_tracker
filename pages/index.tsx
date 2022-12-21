@@ -21,33 +21,29 @@ const Home = () => {
     const [exercises, setExercises] = useState<any[]>([]); // list of exercises
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        async function getExercises() {
-            try {
-                setLoading(true);
+    async function getExercises() {
+        try {
+            setLoading(true);
 
-                let { data, error, status } = await supabase
-                    .from("workouts")
-                    .select(`*`)
-                    .eq("user_id", user?.id)
-                    .order("inserted_at", { ascending: false });
-                if (error && status !== 406) {
-                    throw error;
-                }
-
-                if (data) {
-                    console.log(user?.id);
-                    setExercises(data);
-                }
-            } catch (error) {
-                console.log("No exercises");
-            } finally {
-                setLoading(false);
+            let { data, error, status } = await supabase
+                .from("workouts")
+                .select(`*`)
+                .eq("user_id", user?.id)
+                .order("inserted_at", { ascending: false });
+            if (error && status !== 406) {
+                throw error;
             }
-        }
 
-        getExercises();
-    }, []);
+            if (data) {
+                console.log(user?.id);
+                setExercises(data);
+            }
+        } catch (error) {
+            console.log("No exercises");
+        } finally {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
         async function getUsername() {
@@ -73,10 +69,24 @@ const Home = () => {
             }
         }
 
+        getExercises();
         getUsername();
     }, [session, router, supabase, user?.id]);
 
-    console.log(username);
+    const handleDelete = async (id: number) => {
+        try {
+            const { data, error } = await supabase
+                .from("workouts")
+                .delete()
+                .eq("id", id)
+                .eq("user_id", user?.id);
+            getExercises();
+            if (error) throw error;
+            alert("Workout deleted successfully");
+        } catch (error: any) {
+            alert(error.message);
+        }
+    };
     return (
         <>
             <Navbar session={session}></Navbar>
@@ -111,7 +121,10 @@ const Home = () => {
                 ) : (
                     <div className={styles.container}>
                         <p>Here are your exercises:</p>
-                        <ExerciseCard data={exercises} />
+                        <ExerciseCard
+                            data={exercises}
+                            handleDelete={handleDelete}
+                        />
                     </div>
                 )}
             </div>
