@@ -49,13 +49,3 @@
     color: black;
     font-size: 1rem;
 }
-
-.edit {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    color: black;
-    font-size: 1rem;
-    margin-right: 1rem;
-}

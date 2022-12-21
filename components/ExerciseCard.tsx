@@ -1,8 +1,8 @@
 import Link from "next/link";
 import styles from "../styles/ExerciseCard.module.css";
-import { formatDistanceToNow } from "date-fns";
 import { parseISO } from "date-fns";
 import { format } from "date-fns";
+import { FiEdit } from "react-icons/fi";
 
 const ExerciseCard = ({ data }: { data: any[] }) => {
     console.log(data);
@@ -25,6 +25,21 @@ const ExerciseCard = ({ data }: { data: any[] }) => {
                     <p className={styles.time}>
                         {format(parseISO(item.inserted_at), "yyyy-MM-dd HH:mm")}
                     </p>
+                    <div
+                        style={{
+                            height: "28px",
+                            position: "absolute",
+                            right: "-14px",
+                            top: "-14px",
+                            border: "2px solid black",
+                            backgroundColor: "red",
+                            borderRadius: "5px",
+                        }}
+                    >
+                        <Link href={`/edit/${item.id}`}>
+                            <FiEdit />
+                        </Link>
+                    </div>
                 </div>
             ))}
         </div>
