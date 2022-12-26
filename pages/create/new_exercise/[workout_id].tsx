@@ -1,12 +1,12 @@
 import { useState } from "react";
-import styles from "../../styles/Create.module.css";
+import styles from "../../../styles/Create.module.css";
 import { useRouter } from "next/router";
 import {
     useSession,
     useSupabaseClient,
     useUser,
 } from "@supabase/auth-helpers-react";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../../components/Navbar";
 
 const CreateNewExercise = () => {
     const session = useSession();
@@ -22,7 +22,7 @@ const CreateNewExercise = () => {
     const [exerciseData, setExerciseData] = useState(initialState);
 
     const { title, loads, reps, sets } = exerciseData;
-
+    const { workout_id } = router.query;
     const handleChange = (e: any) => {
         setExerciseData({ ...exerciseData, [e.target.name]: e.target.value });
     };
@@ -36,6 +36,7 @@ const CreateNewExercise = () => {
                 reps,
                 sets,
                 user_id: user?.id,
+                workout_id: workout_id,
             })
             .single();
         setExerciseData(initialState);
