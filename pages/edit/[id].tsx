@@ -35,7 +35,7 @@ const Edit = () => {
             setExercise(data);
         };
         getExercise();
-    }, [id]);
+    }, [id, supabase]);
 
     const handleChange = (e: any) => {
         setExercise({

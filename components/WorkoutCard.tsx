@@ -9,7 +9,7 @@ const WorkoutCard = ({ data, router }: { data: any[]; router: NextRouter }) => {
     return (
         <div className={styles.exerciseContainer}>
             {data?.map((item) => (
-                <Link href={`/workout/${item.id}`}>
+                <Link key={item.id} href={`/workout/${item.id}`}>
                     <div key={item.id} className={styles.container}>
                         <p className={styles.title}>
                             {" "}

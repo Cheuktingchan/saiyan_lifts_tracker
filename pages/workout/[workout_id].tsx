@@ -64,7 +64,7 @@ const Exercises = () => {
             }
         };
         getExercisesFromWorkout();
-    }, [workout_id, router.isReady, router.query, loading]);
+    }, [workout_id, router.isReady, router.query, loading, supabase]);
 
     useEffect(() => {
         async function getUsername() {
@@ -91,7 +91,7 @@ const Exercises = () => {
         }
 
         getUsername();
-    }, [session, router, supabase, user?.id, workout_id]);
+    }, [session, router, supabase, user?.id, workout_id, supabase]);
 
     const handleDelete = async (id: number) => {
         try {
