@@ -27,7 +27,8 @@ const Home = () => {
 
             let { data, error, status } = await supabase
                 .from("workouts")
-                .select("*");
+                .select("*")
+                .order("created_at", { ascending: false });
             if (error && status !== 406) {
                 throw error;
             }
@@ -79,9 +80,8 @@ const Home = () => {
                 .eq("user_created", user?.id);
             getWorkouts();
             if (error) throw error;
-            alert("Workout deleted successfully");
         } catch (error: any) {
-            alert(error.message);
+            console.log(error.message);
         }
     };
 

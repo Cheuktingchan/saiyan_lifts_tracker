@@ -119,9 +119,8 @@ const Exercises = () => {
                 .eq("user_id", user?.id);
             getExercises();
             if (error) throw error;
-            alert("Workout deleted successfully");
         } catch (error: any) {
-            alert(error.message);
+            console.log(error.message);
         }
     };
     return (

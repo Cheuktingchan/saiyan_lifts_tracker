@@ -40,7 +40,7 @@ const CreateNewExercise = () => {
             })
             .single();
         setExerciseData(initialState);
-        router.push("/");
+        router.push(`/workout/${workout_id}`);
     };
 
     return (

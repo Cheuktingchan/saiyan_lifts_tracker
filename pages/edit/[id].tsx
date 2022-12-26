@@ -44,6 +44,17 @@ const Edit = () => {
         });
     };
 
+    const pushBackToWorkout = async () => {
+        const { data } = await supabase
+            .from("exercises")
+            .select(`workout_id`)
+            .eq("id", id)
+            .eq("user_id", user?.id)
+            .single();
+        if (data) {
+            router.push(`/workout/${data.workout_id}`);
+        }
+    };
     const updateExercise = async () => {
         const { title, loads, reps, sets } = exercise;
         const { data } = await supabase
@@ -56,10 +67,7 @@ const Edit = () => {
             })
             .eq("id", id)
             .eq("user_id", user?.id);
-
-        alert("Exercise updated successfully");
-
-        router.push("/");
+        pushBackToWorkout();
     };
     return (
         <>

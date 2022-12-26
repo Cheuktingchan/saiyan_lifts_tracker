@@ -15,44 +15,42 @@ const WorkoutCard = ({
     return (
         <div>
             {data?.map((item) => (
-                <>
-                    <div
-                        key={item.id}
-                        className={styles.container}
-                        style={{ height: "4em" }}
-                    >
-                        <Link key={item.id} href={`/workout/${item.id}`}>
-                            <p className={styles.title}>
-                                {" "}
-                                Workout: {""}
-                                {item.title}
-                            </p>
-                            <p className={styles.title}>
-                                {" "}
-                                Date: {""}
-                                {format(
-                                    parseISO(item.created_at),
-                                    "yyyy-MM-dd HH:mm"
-                                )}
-                            </p>
-                        </Link>
+                <div
+                    key={item.id}
+                    className={styles.container}
+                    style={{ height: "4em" }}
+                >
+                    <Link href={`/workout/${item.id}`}>
+                        <p className={styles.title}>
+                            {" "}
+                            Workout: {""}
+                            {item.title}
+                        </p>
+                        <p className={styles.title}>
+                            {" "}
+                            Date: {""}
+                            {format(
+                                parseISO(item.created_at),
+                                "yyyy-MM-dd HH:mm"
+                            )}
+                        </p>
+                    </Link>
 
-                        <div
-                            style={{
-                                height: "28px",
-                                position: "absolute",
-                                right: "-14px",
-                                top: "-14px",
-                                border: "2px solid black",
-                                backgroundColor: "red",
-                                borderRadius: "5px",
-                            }}
-                            onClick={() => handleDelete(item.id)}
-                        >
-                            <BsTrash />
-                        </div>
+                    <div
+                        style={{
+                            height: "28px",
+                            position: "absolute",
+                            right: "-14px",
+                            top: "-14px",
+                            border: "2px solid black",
+                            backgroundColor: "red",
+                            borderRadius: "5px",
+                        }}
+                        onClick={() => handleDelete(item.id)}
+                    >
+                        <BsTrash />
                     </div>
-                </>
+                </div>
             ))}
         </div>
     );
