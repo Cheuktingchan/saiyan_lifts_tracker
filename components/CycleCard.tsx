@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { NextRouter } from "next/router";
 import { BsTrash } from "react-icons/bs";
 
-const WorkoutCard = ({
+const CycleCard = ({
     data,
     handleDelete,
 }: {
@@ -20,10 +20,10 @@ const WorkoutCard = ({
                     className={styles.container}
                     style={{ height: "4em" }}
                 >
-                    <Link href={`/workout/${item.id}`}>
+                    <Link href={`/cycle/${item.id}`}>
                         <p className={styles.title}>
                             {" "}
-                            Workout: {""}
+                            Cycle: {""}
                             {item.title}
                         </p>
                         <p className={styles.title}>
@@ -56,4 +56,4 @@ const WorkoutCard = ({
     );
 };
 
-export default WorkoutCard;
+export default CycleCard;

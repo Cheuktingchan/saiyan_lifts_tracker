@@ -9,27 +9,27 @@ import {
 import Navbar from "../../components/Navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import ExerciseCard from "../../components/ExerciseCard";
+import WorkoutCard from "../../components/WorkoutCard";
 import Link from "next/link";
 
-const Exercises = () => {
+const Workouts = () => {
     const supabase = useSupabaseClient();
     const session = useSession();
     const user = useUser();
     const router = useRouter();
-    const [workoutName, setWorkoutName] = useState<string | null>(null);
+    const [cycleName, setCycleName] = useState<string | null>(null);
     const [username, setUsername] = useState<string | null>(null);
-    const [exercises, setExercises] = useState<any[] | null>([]); // list of exercises
+    const [workouts, setWorkouts] = useState<any[] | null>([]); // list of workouts
     const [loading, setLoading] = useState(true);
 
-    const { workout_id } = router.query;
+    const { cycle_id } = router.query;
 
-    async function getExercises() {
+    async function getWorkouts() {
         try {
             setLoading(true);
 
             let { data, error, status } = await supabase
-                .from("exercises")
+                .from("workouts")
                 .select(`*`)
                 .eq("user_created", user?.id)
                 .order("inserted_at", { ascending: false });
@@ -38,28 +38,28 @@ const Exercises = () => {
             }
 
             if (data) {
-                setExercises(data);
+                setWorkouts(data);
             }
         } catch (error) {
-            console.log("No exercises");
+            console.log("No workouts");
         } finally {
             setLoading(false);
         }
     }
 
     useEffect(() => {
-        const getExercisesFromWorkout = async () => {
+        const getWorkoutsFromCycle = async () => {
             if (router.isReady) {
                 let { data } = await supabase
-                    .from("exercises")
+                    .from("workouts")
                     .select(`*`)
-                    .filter("workout_id", "eq", workout_id)
-                    .order("inserted_at", { ascending: false });
-                setExercises(data);
+                    .filter("cycle_id", "eq", cycle_id)
+                    .order("created_at", { ascending: false });
+                setWorkouts(data);
             }
         };
-        getExercisesFromWorkout();
-    }, [workout_id, router.isReady, router.query, loading, supabase]);
+        getWorkoutsFromCycle();
+    }, [cycle_id, router.isReady, router.query, loading, supabase]);
 
     useEffect(() => {
         async function getUsername() {
@@ -86,38 +86,39 @@ const Exercises = () => {
         }
 
         getUsername();
-        async function getWorkoutName() {
+        async function getCycleName() {
             try {
                 setLoading(true);
+                if (router.isReady) {
+                    let { data, error, status } = await supabase
+                        .from("cycles")
+                        .select(`title`)
+                        .eq("id", cycle_id)
+                        .single();
+                    if (error && status !== 406) {
+                        throw error;
+                    }
 
-                let { data, error, status } = await supabase
-                    .from("workouts")
-                    .select(`title`)
-                    .eq("id", workout_id)
-                    .single();
-                if (error && status !== 406) {
-                    throw error;
-                }
-
-                if (data) {
-                    setWorkoutName(data.title);
+                    if (data) {
+                        setCycleName(data.title);
+                    }
                 }
             } catch (error) {
-                console.log("No workout");
+                console.log("No cycle");
                 setLoading(false);
             }
         }
-        getWorkoutName();
-    }, [session, router, supabase, user?.id, workout_id, supabase]);
+        getCycleName();
+    }, [session, router, supabase, user?.id, cycle_id, supabase]);
 
     const handleDelete = async (id: number) => {
         try {
             const { data, error } = await supabase
-                .from("exercises")
+                .from("workouts")
                 .delete()
                 .eq("id", id)
                 .eq("user_created", user?.id);
-            getExercises();
+            getWorkouts();
             if (error) throw error;
         } catch (error: any) {
             console.log(error.message);
@@ -128,7 +129,7 @@ const Exercises = () => {
             <Navbar session={session}></Navbar>
             {username ? (
                 <div className={styles.container}>
-                    Here are the exercises from &quot;{workoutName}&quot;
+                    Here are the workouts from &quot;{cycleName}&quot;
                 </div>
             ) : (
                 <div className={styles.container}>
@@ -136,7 +137,7 @@ const Exercises = () => {
                 </div>
             )}
             <div className={styles.container}>
-                <Link href={`/create/new_exercise/${workout_id}`}>
+                <Link href={`/create/new_workout/${cycle_id}`}>
                     <button
                         className={styles.button}
                         style={{
@@ -145,20 +146,20 @@ const Exercises = () => {
                             marginBottom: "5%",
                         }}
                     >
-                        Create New<br></br> Exercise
+                        Create New<br></br> Workout
                     </button>
                 </Link>
             </div>
             <div className={styles.container}>
-                {exercises?.length === 0 ? (
+                {workouts?.length === 0 ? (
                     <div>
-                        <p>There are no exercises yet</p>
+                        <p>There are no workouts yet</p>
                     </div>
                 ) : (
                     <div className={styles.container}>
-                        <p>Here are your exercises:</p>
-                        <ExerciseCard
-                            data={exercises}
+                        <p>Here are your workouts:</p>
+                        <WorkoutCard
+                            data={workouts}
                             handleDelete={handleDelete}
                         />
                     </div>
@@ -168,4 +169,4 @@ const Exercises = () => {
     );
 };
 
-export default Exercises;
+export default Workouts;

@@ -10,7 +10,7 @@ import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import WorkoutCard from "../components/WorkoutCard";
+import CycleCard from "../components/CycleCard";
 
 const Home = () => {
     const supabase = useSupabaseClient();
@@ -18,15 +18,15 @@ const Home = () => {
     const user = useUser();
     const router = useRouter();
     const [username, setUsername] = useState<string | null>(null);
-    const [exercises, setExercises] = useState<any[]>([]); // list of exercises
+    const [workouts, setWorkouts] = useState<any[]>([]); // list of workouts
     const [loading, setLoading] = useState(true);
 
-    async function getWorkouts() {
+    async function getCycles() {
         try {
             setLoading(true);
 
             let { data, error, status } = await supabase
-                .from("workouts")
+                .from("cycles")
                 .select("*")
                 .order("created_at", { ascending: true });
             if (error && status !== 406) {
@@ -34,10 +34,10 @@ const Home = () => {
             }
 
             if (data) {
-                setExercises(data);
+                setWorkouts(data);
             }
         } catch (error) {
-            console.log("No exercises");
+            console.log("No workouts");
         } finally {
             setLoading(false);
         }
@@ -67,18 +67,18 @@ const Home = () => {
             }
         }
 
-        getWorkouts();
+        getCycles();
         getUsername();
     }, [session, router, supabase, user?.id]);
 
     const handleDelete = async (id: number) => {
         try {
             const { data, error } = await supabase
-                .from("workouts")
+                .from("cycles")
                 .delete()
                 .eq("id", id)
                 .eq("user_created", user?.id);
-            getWorkouts();
+            getCycles();
             if (error) throw error;
         } catch (error: any) {
             console.log(error.message);
@@ -98,7 +98,7 @@ const Home = () => {
                 </div>
             )}
             <div className={styles.container}>
-                <Link href="/create/new_workout">
+                <Link href="/create/new_cycle/">
                     <button
                         className={styles.button}
                         style={{
@@ -107,20 +107,20 @@ const Home = () => {
                             marginBottom: "5%",
                         }}
                     >
-                        Create New<br></br> Workout
+                        Create New<br></br> Cycle
                     </button>
                 </Link>
             </div>
             <div className={styles.container}>
-                {exercises?.length === 0 ? (
+                {workouts?.length === 0 ? (
                     <div>
-                        <p>There are no workouts yet</p>
+                        <p>There are no cycles yet</p>
                     </div>
                 ) : (
                     <div className={styles.container}>
-                        <p>Here are your workouts:</p>
-                        <WorkoutCard
-                            data={exercises}
+                        <p>Here are your cycles:</p>
+                        <CycleCard
+                            data={workouts}
                             handleDelete={handleDelete}
                         />
                     </div>

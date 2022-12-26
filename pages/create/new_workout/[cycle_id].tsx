@@ -1,17 +1,17 @@
 import { useState } from "react";
-import styles from "../../styles/Create.module.css";
+import styles from "../../../styles/Create.module.css";
 import { useRouter } from "next/router";
 import {
     useSession,
     useSupabaseClient,
     useUser,
 } from "@supabase/auth-helpers-react";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../../components/Navbar";
 
 const CreateNewWorkout = () => {
     const session = useSession();
     const initialState = {
-        title: "New workout",
+        title: "Workout",
     };
     const supabase = useSupabaseClient();
     const user = useUser();
@@ -19,7 +19,7 @@ const CreateNewWorkout = () => {
     const [workoutData, setWorkoutData] = useState(initialState);
 
     const { title } = workoutData;
-
+    const { cycle_id } = router.query;
     const handleChange = (e: any) => {
         setWorkoutData({ ...workoutData, [e.target.name]: e.target.value });
     };
@@ -30,11 +30,12 @@ const CreateNewWorkout = () => {
             .insert({
                 title,
                 user_created: user?.id,
+                cycle_id: cycle_id,
             })
             .single();
 
         setWorkoutData(initialState);
-        router.push("/");
+        router.push(`/cycle/${cycle_id}`);
     };
 
     return (
