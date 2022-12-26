@@ -9,7 +9,7 @@ const ExerciseCard = ({
     data,
     handleDelete,
 }: {
-    data: any[];
+    data: any[] | null;
     handleDelete: any;
 }) => {
     console.log(data);

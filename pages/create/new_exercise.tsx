@@ -1,14 +1,14 @@
 import { useState } from "react";
-import styles from "../styles/Create.module.css";
+import styles from "../../styles/Create.module.css";
 import { useRouter } from "next/router";
 import {
     useSession,
     useSupabaseClient,
     useUser,
 } from "@supabase/auth-helpers-react";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 
-const Create = () => {
+const CreateNewExercise = () => {
     const session = useSession();
     const initialState = {
         title: "",
@@ -29,7 +29,7 @@ const Create = () => {
 
     const createExercise = async () => {
         const { data, error, status } = await supabase
-            .from("workouts")
+            .from("exercises")
             .insert({
                 title,
                 loads,
@@ -93,4 +93,4 @@ const Create = () => {
     );
 };
 
-export default Create;
+export default CreateNewExercise;

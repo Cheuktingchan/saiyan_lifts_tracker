@@ -1,6 +1,11 @@
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import {
+    useSession,
+    useSupabaseClient,
+    useUser,
+} from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Navbar from "../../components/Navbar";
 import styles from "../../styles/Create.module.css";
 
 const Edit = () => {
@@ -11,6 +16,7 @@ const Edit = () => {
         sets: "",
     };
     const supabase = useSupabaseClient();
+    const session = useSession();
     const user = useUser();
     const [exercise, setExercise] = useState(initialState);
     const router = useRouter();
@@ -22,7 +28,7 @@ const Edit = () => {
             if (!id) return;
 
             const { data } = await supabase
-                .from("workouts")
+                .from("exercises")
                 .select("*")
                 .filter("id", "eq", id)
                 .single();
@@ -41,7 +47,7 @@ const Edit = () => {
     const updateExercise = async () => {
         const { title, loads, reps, sets } = exercise;
         const { data } = await supabase
-            .from("workouts")
+            .from("exercises")
             .update({
                 title,
                 loads,
@@ -56,47 +62,50 @@ const Edit = () => {
         router.push("/");
     };
     return (
-        <div className={styles.container}>
-            <div className={styles.form}>
-                <h1 className={styles.title}>Edit Exercise</h1>
-                <label className={styles.label}> Title:</label>
-                <input
-                    type="text"
-                    name="title"
-                    value={exercise?.title}
-                    onChange={handleChange}
-                    className={styles.input}
-                />
-                <label className={styles.label}> Load (kg):</label>
-                <input
-                    type="text"
-                    name="loads"
-                    value={exercise?.loads}
-                    onChange={handleChange}
-                    className={styles.input}
-                />
-                <label className={styles.label}> Reps:</label>
-                <input
-                    type="text"
-                    name="reps"
-                    value={exercise?.reps}
-                    onChange={handleChange}
-                    className={styles.input}
-                />
-                <label className={styles.label}> Sets:</label>
-                <input
-                    type="text"
-                    name="sets"
-                    value={exercise?.sets}
-                    onChange={handleChange}
-                    className={styles.input}
-                    placeholder="Enter number of sets"
-                />
-                <button onClick={updateExercise} className={styles.button}>
-                    Update Exercise
-                </button>
+        <>
+            <Navbar session={session}></Navbar>
+            <div className={styles.container}>
+                <div className={styles.form}>
+                    <h1 className={styles.title}>Edit Exercise</h1>
+                    <label className={styles.label}> Title:</label>
+                    <input
+                        type="text"
+                        name="title"
+                        value={exercise?.title}
+                        onChange={handleChange}
+                        className={styles.input}
+                    />
+                    <label className={styles.label}> Load (kg):</label>
+                    <input
+                        type="text"
+                        name="loads"
+                        value={exercise?.loads}
+                        onChange={handleChange}
+                        className={styles.input}
+                    />
+                    <label className={styles.label}> Reps:</label>
+                    <input
+                        type="text"
+                        name="reps"
+                        value={exercise?.reps}
+                        onChange={handleChange}
+                        className={styles.input}
+                    />
+                    <label className={styles.label}> Sets:</label>
+                    <input
+                        type="text"
+                        name="sets"
+                        value={exercise?.sets}
+                        onChange={handleChange}
+                        className={styles.input}
+                        placeholder="Enter number of sets"
+                    />
+                    <button onClick={updateExercise} className={styles.button}>
+                        Update Exercise
+                    </button>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
