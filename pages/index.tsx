@@ -28,7 +28,7 @@ const Home = () => {
             let { data, error, status } = await supabase
                 .from("workouts")
                 .select("*")
-                .order("created_at", { ascending: false });
+                .order("created_at", { ascending: true });
             if (error && status !== 406) {
                 throw error;
             }
