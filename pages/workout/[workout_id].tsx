@@ -129,7 +129,7 @@ const Exercises = () => {
             <Navbar session={session}></Navbar>
             {username ? (
                 <div className={styles.container}>
-                    Here are the exercises from "{workoutName}"
+                    Here are the exercises from &quot;{workoutName}&quot;
                 </div>
             ) : (
                 <div className={styles.container}>
