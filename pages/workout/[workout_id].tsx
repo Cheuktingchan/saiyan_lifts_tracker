@@ -17,6 +17,7 @@ const Exercises = () => {
     const session = useSession();
     const user = useUser();
     const router = useRouter();
+    const [workoutName, setWorkoutName] = useState<string | null>(null);
     const [username, setUsername] = useState<string | null>(null);
     const [exercises, setExercises] = useState<any[] | null>([]); // list of exercises
     const [loading, setLoading] = useState(true);
@@ -37,12 +38,9 @@ const Exercises = () => {
             }
 
             if (data) {
-                console.log(user?.id);
-                console.log(workout_id);
                 setExercises(data);
             }
         } catch (error) {
-            console.log(workout_id);
             console.log("No exercises");
         } finally {
             setLoading(false);
@@ -58,9 +56,6 @@ const Exercises = () => {
                     .filter("workout_id", "eq", workout_id)
                     .order("inserted_at", { ascending: false });
                 setExercises(data);
-                console.log(data);
-                console.log(workout_id);
-                console.log(router.query);
             }
         };
         getExercisesFromWorkout();
@@ -91,6 +86,28 @@ const Exercises = () => {
         }
 
         getUsername();
+        async function getWorkoutName() {
+            try {
+                setLoading(true);
+
+                let { data, error, status } = await supabase
+                    .from("workouts")
+                    .select(`title`)
+                    .eq("id", workout_id)
+                    .single();
+                if (error && status !== 406) {
+                    throw error;
+                }
+
+                if (data) {
+                    setWorkoutName(data.title);
+                }
+            } catch (error) {
+                console.log("No workout");
+                setLoading(false);
+            }
+        }
+        getWorkoutName();
     }, [session, router, supabase, user?.id, workout_id, supabase]);
 
     const handleDelete = async (id: number) => {
@@ -112,7 +129,7 @@ const Exercises = () => {
             <Navbar session={session}></Navbar>
             {username ? (
                 <div className={styles.container}>
-                    Here are the exercises from {workout_id}
+                    Here are the exercises from "{workoutName}"
                 </div>
             ) : (
                 <div className={styles.container}>

@@ -21,29 +21,28 @@ const Home = () => {
     const [exercises, setExercises] = useState<any[]>([]); // list of exercises
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        async function getWorkouts() {
-            try {
-                setLoading(true);
+    async function getWorkouts() {
+        try {
+            setLoading(true);
 
-                let { data, error, status } = await supabase
-                    .from("workouts")
-                    .select("*");
-                if (error && status !== 406) {
-                    throw error;
-                }
-
-                if (data) {
-                    //console.log(user?.id);
-                    console.log(data);
-                    setExercises(data);
-                }
-            } catch (error) {
-                console.log("No exercises");
-            } finally {
-                setLoading(false);
+            let { data, error, status } = await supabase
+                .from("workouts")
+                .select("*");
+            if (error && status !== 406) {
+                throw error;
             }
+
+            if (data) {
+                setExercises(data);
+            }
+        } catch (error) {
+            console.log("No exercises");
+        } finally {
+            setLoading(false);
         }
+    }
+
+    useEffect(() => {
         async function getUsername() {
             try {
                 setLoading(true);
@@ -70,6 +69,21 @@ const Home = () => {
         getWorkouts();
         getUsername();
     }, [session, router, supabase, user?.id]);
+
+    const handleDelete = async (id: number) => {
+        try {
+            const { data, error } = await supabase
+                .from("workouts")
+                .delete()
+                .eq("id", id)
+                .eq("user_created", user?.id);
+            getWorkouts();
+            if (error) throw error;
+            alert("Workout deleted successfully");
+        } catch (error: any) {
+            alert(error.message);
+        }
+    };
 
     return (
         <>
@@ -105,7 +119,10 @@ const Home = () => {
                 ) : (
                     <div className={styles.container}>
                         <p>Here are your workouts:</p>
-                        <WorkoutCard data={exercises} router={router} />
+                        <WorkoutCard
+                            data={exercises}
+                            handleDelete={handleDelete}
+                        />
                     </div>
                 )}
             </div>

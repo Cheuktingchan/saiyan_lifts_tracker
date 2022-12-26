@@ -12,7 +12,6 @@ const ExerciseCard = ({
     data: any[] | null;
     handleDelete: any;
 }) => {
-    console.log(data);
     return (
         <div className={styles.exerciseContainer}>
             {data?.map((item) => (
