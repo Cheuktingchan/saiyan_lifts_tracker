@@ -29,10 +29,7 @@ const WorkoutCard = ({
                         <p className={styles.title}>
                             {" "}
                             Date: {""}
-                            {format(
-                                parseISO(item.created_at),
-                                "yyyy-MM-dd HH:mm"
-                            )}
+                            {format(parseISO(item.created_at), "dd/MM/yy")}
                         </p>
                     </Link>
 

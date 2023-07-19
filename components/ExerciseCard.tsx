@@ -4,6 +4,8 @@ import { parseISO } from "date-fns";
 import { format } from "date-fns";
 import { FiEdit } from "react-icons/fi";
 import { BsTrash } from "react-icons/bs";
+import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
+import { useState } from "react";
 
 const ExerciseCard = ({
     data,
@@ -12,6 +14,8 @@ const ExerciseCard = ({
     data: any[] | null;
     handleDelete: any;
 }) => {
+    const [isOpen, setIsOpen] = useState(new Map());
+    console.log(isOpen);
     return (
         <div className={styles.exerciseContainer}>
             {data?.map((item) => (
@@ -21,16 +25,20 @@ const ExerciseCard = ({
                         Exercise: {""}
                         {item.title}
                     </p>
-                    <p className={styles.load}>
-                        {" "}
-                        Load(kg): {"  "}
-                        {item.loads}
-                    </p>
-                    <p className={styles.reps}>Reps:{item.reps}</p>
-                    <p className={styles.reps}>Sets:{item.sets}</p>
-                    <p className={styles.time}>
-                        {format(parseISO(item.inserted_at), "yyyy-MM-dd HH:mm")}
-                    </p>
+                    {isOpen.get(item.id) && (
+                        <>
+                            <p className={styles.load}>
+                                {" "}
+                                Load(kg): {"  "}
+                                {item.loads}
+                            </p>
+                            <p className={styles.reps}>Reps:{item.reps}</p>
+                            <p className={styles.reps}>Sets:{item.sets}</p>
+                            <p className={styles.time}>
+                                {format(parseISO(item.inserted_at), "dd/MM/yy")}
+                            </p>
+                        </>
+                    )}
                     <div
                         style={{
                             height: "28px",
@@ -59,6 +67,29 @@ const ExerciseCard = ({
                         onClick={() => handleDelete(item.id)}
                     >
                         <BsTrash />
+                    </div>
+                    <div
+                        style={{
+                            height: "28px",
+                            position: "absolute",
+                            top: "0.5rem",
+                            right: "1rem",
+                        }}
+                        onClick={() =>
+                            !isOpen.get(item.id)
+                                ? setIsOpen(
+                                      (map) => new Map(map.set(item.id, true))
+                                  )
+                                : setIsOpen(
+                                      (map) => new Map(map.set(item.id, false))
+                                  )
+                        }
+                    >
+                        {!isOpen.get(item.id) ? (
+                            <GoTriangleDown />
+                        ) : (
+                            <GoTriangleUp />
+                        )}
                     </div>
                 </div>
             ))}
