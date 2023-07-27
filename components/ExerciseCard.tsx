@@ -15,7 +15,6 @@ const ExerciseCard = ({
     handleDelete: any;
 }) => {
     const [isOpen, setIsOpen] = useState(new Map());
-    console.log(isOpen);
     return (
         <div className={styles.exerciseContainer}>
             {data?.map((item) => (

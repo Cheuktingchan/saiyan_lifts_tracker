@@ -116,7 +116,7 @@ const Exercises = () => {
                 .from("exercises")
                 .delete()
                 .eq("id", id)
-                .eq("user_created", user?.id);
+                .eq("user_id", user?.id);
             getExercises();
             if (error) throw error;
         } catch (error: any) {
