@@ -48,6 +48,9 @@
     opacity: 0.5; /* Firefox */
 }
 
+.input::-webkit-calendar-picker-indicator {
+    opacity: 0;
+}
 .button {
     margin-bottom: 32px;
 }

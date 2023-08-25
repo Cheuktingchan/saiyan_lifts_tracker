@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../../styles/Create.module.css";
 import { useRouter } from "next/router";
 import {
@@ -16,11 +16,13 @@ const CreateNewExercise = () => {
         reps: "",
         sets: "",
     };
+    const emptyList: any[] = [];
     const supabase = useSupabaseClient();
     const user = useUser();
     const router = useRouter();
     const [exerciseData, setExerciseData] = useState(initialState);
-
+    const [userExerciseList, setUserExerciseList] = useState(emptyList);
+    const [errorMessage, setErrorMessage] = useState("");
     const { title, loads, reps, sets } = exerciseData;
     const { workout_id } = router.query;
     const handleChange = (e: any) => {
@@ -28,21 +30,46 @@ const CreateNewExercise = () => {
     };
 
     const createExercise = async () => {
-        const { data, error, status } = await supabase
-            .from("exercises")
-            .insert({
-                title,
-                loads,
-                reps,
-                sets,
-                user_id: user?.id,
-                workout_id: workout_id,
-            })
-            .single();
-        setExerciseData(initialState);
-        router.push(`/workout/${workout_id}`);
+        if (userExerciseList.includes(exerciseData.title)) {
+            setErrorMessage("");
+            const { data, error, status } = await supabase
+                .from("exercises")
+                .insert({
+                    title,
+                    loads,
+                    reps,
+                    sets,
+                    user_id: user?.id,
+                    workout_id: workout_id,
+                })
+                .single();
+            setExerciseData(initialState);
+            router.push(`/workout/${workout_id}`);
+        } else {
+            setErrorMessage("No such exercise!");
+        }
     };
 
+    async function getExercises() {
+        try {
+            let { data, error, status } = await supabase
+                .from("user_exercise")
+                .select(`title`)
+                .eq("user_created", user?.id);
+            if (error && status !== 406) {
+                throw error;
+            }
+
+            if (data) {
+                setUserExerciseList(data);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() => {
+        getExercises();
+    });
     return (
         <>
             <Navbar session={session}></Navbar>
@@ -50,13 +77,19 @@ const CreateNewExercise = () => {
                 <div className={styles.form}>
                     <p className={styles.title}>Create a New Exercise</p>
                     <label className={styles.label}>Exercise:</label>
+                    <datalist id="suggestions" className={styles.input}>
+                        {userExerciseList.map(function (d) {
+                            return <option key={d.title}>{d.title}</option>;
+                        })}
+                    </datalist>
                     <input
                         type="text"
                         name="title"
-                        value={title}
-                        onChange={handleChange}
                         className={styles.input}
-                        placeholder="Enter a title"
+                        placeholder="Search exercise"
+                        autoComplete="on"
+                        list="suggestions"
+                        onChange={handleChange}
                     />
                     <label className={styles.label}>Load (kg):</label>
                     <input
@@ -89,6 +122,14 @@ const CreateNewExercise = () => {
                         Create Exercise
                     </button>
                 </div>
+                <p
+                    style={{
+                        color: "#DC143C",
+                        marginBlockEnd: "0",
+                    }}
+                >
+                    {errorMessage}
+                </p>
             </div>
         </>
     );
