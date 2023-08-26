@@ -61,15 +61,20 @@ const CreateNewExercise = () => {
             }
 
             if (data) {
-                setUserExerciseList(data);
+                let data_str = [];
+                for (let i = 0; i < data.length; i++) {
+                    data_str.push(data[i].title);
+                }
+                setUserExerciseList(data_str);
             }
         } catch (error) {
             console.log(error);
         }
     }
     useEffect(() => {
+        console.log("got exercises");
         getExercises();
-    });
+    }, []);
     return (
         <>
             <Navbar session={session}></Navbar>
@@ -79,7 +84,7 @@ const CreateNewExercise = () => {
                     <label className={styles.label}>Exercise:</label>
                     <datalist id="suggestions" className={styles.input}>
                         {userExerciseList.map(function (d) {
-                            return <option key={d.title}>{d.title}</option>;
+                            return <option key={d}>{d}</option>;
                         })}
                     </datalist>
                     <input
