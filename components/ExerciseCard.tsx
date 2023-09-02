@@ -28,7 +28,7 @@ const ExerciseCard = ({
                         <>
                             <p className={styles.load}>
                                 {" "}
-                                Load(kg): {"  "}
+                                Load (kg): {"  "}
                                 {item.loads}
                             </p>
                             <p className={styles.reps}>Reps:{item.reps}</p>

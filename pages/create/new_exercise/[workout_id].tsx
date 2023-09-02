@@ -49,7 +49,7 @@ const CreateNewExercise = () => {
                 }
                 setExerciseData(initialState);
                 router.push(`/workout/${workout_id}`);
-            } catch (error) {
+            } catch (error: any) {
                 if (error.code == "22P02") {
                     setErrorMessage("Non numerical input detected");
                 }
@@ -112,7 +112,7 @@ const CreateNewExercise = () => {
                         value={loads}
                         onChange={handleChange}
                         className={styles.input}
-                        placeholder="Enter weight load"
+                        placeholder="Enter weight load (kg)"
                     />
                     <label className={styles.label}>Reps:</label>
                     <input

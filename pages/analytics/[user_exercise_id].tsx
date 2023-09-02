@@ -1,5 +1,3 @@
-import Head from "next/head";
-import Image from "next/image";
 import styles from "../../styles/Home.module.css";
 import {
     useSession,
@@ -9,57 +7,62 @@ import {
 import Navbar from "../../components/Navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import ExerciseCard from "../../components/ExerciseCard";
-import Link from "next/link";
+import LineChart from "../../components/LineChart";
+import { format, parseISO } from "date-fns";
 
 const Exercises = () => {
     const supabase = useSupabaseClient();
     const session = useSession();
     const user = useUser();
     const router = useRouter();
-    const [workoutName, setWorkoutName] = useState<string | null>(null);
+    const [userExerciseTitle, setUserExerciseTitle] = useState<string | null>(
+        null
+    );
     const [username, setUsername] = useState<string | null>(null);
     const [exercises, setExercises] = useState<any[] | null>([]); // list of exercises
+    const [chartData, setChartData] = useState<any | null>();
     const [loading, setLoading] = useState(true);
 
-    const { workout_id } = router.query;
-
-    async function getExercises() {
-        try {
-            setLoading(true);
-
-            let { data, error, status } = await supabase
-                .from("exercises")
-                .select(`*`)
-                .eq("user_created", user?.id)
-                .order("inserted_at", { ascending: false });
-            if (error && status !== 406) {
-                throw error;
-            }
-
-            if (data) {
-                setExercises(data);
-            }
-        } catch (error) {
-            console.log("No exercises");
-        } finally {
-            setLoading(false);
-        }
-    }
+    const { user_exercise_id } = router.query;
 
     useEffect(() => {
-        const getExercisesFromWorkout = async () => {
+        const getExercisesFromWorkouts = async () => {
             if (router.isReady) {
                 let { data } = await supabase
                     .from("exercises")
                     .select(`*`)
-                    .filter("workout_id", "eq", workout_id)
-                    .order("inserted_at", { ascending: false });
-                setExercises(data);
+                    .filter("title", "eq", userExerciseTitle)
+                    .order("inserted_at", { ascending: true });
+                if (data) {
+                    setExercises(data);
+                }
+                console.log(data);
             }
         };
-        getExercisesFromWorkout();
-    }, [workout_id, router.isReady, router.query, loading, supabase]);
+        getExercisesFromWorkouts();
+    }, [userExerciseTitle]);
+
+    useEffect(() => {
+        const getChartData = async () => {
+            setChartData({
+                labels: exercises?.map((data) =>
+                    format(parseISO(data.inserted_at), "dd/MM/yy")
+                ),
+                datasets: [
+                    {
+                        label: "1RM Score",
+                        data: exercises?.map(
+                            (data) => data.loads / (1.0278 - 0.0278 * data.reps) //1RM formula
+                        ),
+                        backgroundColor: ["#6EB720"],
+                        borderColor: "black",
+                        color: "black",
+                    },
+                ],
+            });
+        };
+        getChartData();
+    }, [exercises]);
 
     useEffect(() => {
         async function getUsername() {
@@ -85,50 +88,59 @@ const Exercises = () => {
             }
         }
 
-        getUsername();
-        async function getWorkoutName() {
+        async function getUserExerciseTitle() {
             try {
                 setLoading(true);
-
                 let { data, error, status } = await supabase
-                    .from("workouts")
+                    .from("user_exercise")
                     .select(`title`)
-                    .eq("id", workout_id)
+                    .eq("id", user_exercise_id)
                     .single();
+
                 if (error && status !== 406) {
                     throw error;
                 }
 
                 if (data) {
-                    setWorkoutName(data.title);
+                    setUserExerciseTitle(data.title);
                 }
             } catch (error) {
-                console.log("No workout");
+                router.push("/login");
+            } finally {
                 setLoading(false);
             }
         }
-        getWorkoutName();
-    }, [session, router, supabase, user?.id, workout_id, supabase]);
+        getUsername();
+        getUserExerciseTitle();
+    }, [
+        router.isReady,
+        router.query,
+        session,
+        router,
+        supabase,
+        user?.id,
+        user_exercise_id,
+        supabase,
+    ]);
 
-    const handleDelete = async (id: number) => {
-        try {
-            const { data, error } = await supabase
-                .from("exercises")
-                .delete()
-                .eq("id", id)
-                .eq("user_id", user?.id);
-            getExercises();
-            if (error) throw error;
-        } catch (error: any) {
-            console.log(error.message);
-        }
-    };
     return (
         <>
             <Navbar session={session}></Navbar>
             {username ? (
                 <div className={styles.container}>
-                    Here is your progress on this exercise:
+                    Here is your progress on <br></br> {userExerciseTitle}:
+                    <div
+                        style={{
+                            margin: "0",
+                            top: "50%",
+                            left: "50%",
+                            position: "absolute",
+                            transform: "translate(-50%,-50%)",
+                            border: "2px solid black",
+                        }}
+                    >
+                        {chartData ? <LineChart data={chartData} /> : <></>}
+                    </div>
                 </div>
             ) : (
                 <div className={styles.container}>
