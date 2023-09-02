@@ -32,19 +32,28 @@ const CreateNewExercise = () => {
     const createExercise = async () => {
         if (userExerciseList.includes(exerciseData.title)) {
             setErrorMessage("");
-            const { data, error, status } = await supabase
-                .from("exercises")
-                .insert({
-                    title,
-                    loads,
-                    reps,
-                    sets,
-                    user_id: user?.id,
-                    workout_id: workout_id,
-                })
-                .single();
-            setExerciseData(initialState);
-            router.push(`/workout/${workout_id}`);
+            try {
+                const { data, error, status } = await supabase
+                    .from("exercises")
+                    .insert({
+                        title,
+                        loads,
+                        reps,
+                        sets,
+                        user_id: user?.id,
+                        workout_id: workout_id,
+                    })
+                    .single();
+                if (error && status !== 406) {
+                    throw error;
+                }
+                setExerciseData(initialState);
+                router.push(`/workout/${workout_id}`);
+            } catch (error) {
+                if (error.code == "22P02") {
+                    setErrorMessage("Non numerical input detected");
+                }
+            }
         } else {
             setErrorMessage("No such exercise!");
         }
