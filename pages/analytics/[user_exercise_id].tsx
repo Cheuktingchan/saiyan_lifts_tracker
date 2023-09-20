@@ -137,6 +137,9 @@ const Exercises = () => {
                             position: "absolute",
                             transform: "translate(-50%,-50%)",
                             border: "2px solid black",
+                            borderRadius: "5px",
+                            padding: "1rem",
+                            backgroundColor: "#F9F6EE",
                         }}
                     >
                         {chartData ? <LineChart data={chartData} /> : <></>}
