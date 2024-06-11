@@ -123,6 +123,18 @@ const Exercises = () => {
             console.log(error.message);
         }
     };
+
+    const updateExercise = async (body: any, itemId: any) => {
+        const { data } = await supabase
+            .from("exercises")
+            .update({
+                loads: body["loads"],
+                reps: body["reps"],
+                sets: body["sets"],
+            })
+            .eq("id", itemId)
+            .eq("user_id", user?.id);
+    };
     return (
         <>
             <Navbar session={session}></Navbar>
@@ -160,6 +172,7 @@ const Exercises = () => {
                         <ExerciseCard
                             data={exercises}
                             handleDelete={handleDelete}
+                            updateExercise={updateExercise}
                         />
                     </div>
                 )}

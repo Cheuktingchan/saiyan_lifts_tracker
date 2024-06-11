@@ -5,16 +5,47 @@ import { format } from "date-fns";
 import { FiEdit } from "react-icons/fi";
 import { BsTrash } from "react-icons/bs";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+// ExerciseCard is designed to hold all the cards per page rather than just being one card
 const ExerciseCard = ({
     data,
     handleDelete,
+    updateExercise,
 }: {
     data: any[] | null;
     handleDelete: any;
+    updateExercise: any;
 }) => {
     const [isOpen, setIsOpen] = useState(new Map());
+    const [isEditing, setIsEditing] = useState(new Map());
+    // dataMap converts data from an array to a map with id as the key
+    const dataMap = {};
+    if (data) {
+        for (const workout of data) {
+            dataMap[workout.id] = workout;
+        }
+    }
+    const [exerciseData, setExerciseData] = useState(dataMap);
+    const handleSubmit = (e: any, itemId: any) => {
+        e.preventDefault();
+        const form = new FormData(e.currentTarget);
+        const body = {};
+        for (const [key, value] of form.entries()) {
+            body[key] = value;
+            setExerciseData((prevData) => {
+                const updatedDataMap = { ...prevData }; // Create a shallow copy
+                updatedDataMap[itemId] = {
+                    ...updatedDataMap[itemId], // Copy the existing item
+                    [key]: value, // Update the specific key
+                };
+                return updatedDataMap; // Return the updated data map
+            });
+        }
+        updateExercise(body, itemId);
+        setIsEditing((map) => new Map(map.set(itemId, false)));
+    };
+
     return (
         <div className={styles.exerciseContainer}>
             {data?.map((item) => (
@@ -26,16 +57,91 @@ const ExerciseCard = ({
                     </p>
                     {isOpen.get(item.id) && (
                         <>
-                            <p className={styles.load}>
-                                {" "}
-                                Load (kg): {"  "}
-                                {item.loads}
-                            </p>
-                            <p className={styles.reps}>Reps:{item.reps}</p>
-                            <p className={styles.reps}>Sets:{item.sets}</p>
-                            <p className={styles.time}>
-                                {format(parseISO(item.inserted_at), "dd/MM/yy")}
-                            </p>
+                            {!isEditing.get(item.id) ? (
+                                <>
+                                    <p className={styles.load}>
+                                        {" "}
+                                        Load (kg): {"  "}
+                                        {exerciseData[item.id]["loads"]}
+                                    </p>
+                                    <p className={styles.reps}>
+                                        Reps:{exerciseData[item.id]["reps"]}
+                                    </p>
+                                    <p className={styles.sets}>
+                                        Sets:{exerciseData[item.id]["sets"]}
+                                    </p>
+                                    <p className={styles.time}>
+                                        {format(
+                                            parseISO(item.inserted_at),
+                                            "dd/MM/yy"
+                                        )}
+                                    </p>
+                                </>
+                            ) : (
+                                <>
+                                    <form
+                                        onSubmit={(event) =>
+                                            handleSubmit(event, item.id)
+                                        }
+                                    >
+                                        <p className={styles.load}>
+                                            {" "}
+                                            Load (kg): {""}
+                                            <input
+                                                style={{
+                                                    fontSize: "1rem",
+                                                    width: "25%",
+                                                }}
+                                                type="number"
+                                                name="loads"
+                                                className={styles.load}
+                                                autoComplete="on"
+                                                list="suggestions"
+                                                defaultValue={item.loads}
+                                            />
+                                        </p>
+                                        <p className={styles.reps}>
+                                            {" "}
+                                            Reps: {""}
+                                            <input
+                                                style={{
+                                                    fontSize: "1rem",
+                                                    width: "25%",
+                                                }}
+                                                type="number"
+                                                name="reps"
+                                                className={styles.reps}
+                                                autoComplete="on"
+                                                list="suggestions"
+                                                defaultValue={item.reps}
+                                            />
+                                        </p>
+                                        <p className={styles.sets}>
+                                            {" "}
+                                            Sets: {""}
+                                            <input
+                                                style={{
+                                                    fontSize: "1rem",
+                                                    width: "25%",
+                                                }}
+                                                type="number"
+                                                name="sets"
+                                                className={styles.sets}
+                                                autoComplete="on"
+                                                list="suggestions"
+                                                defaultValue={item.sets}
+                                            />
+                                        </p>
+                                        <p className={styles.time}>
+                                            {format(
+                                                parseISO(item.inserted_at),
+                                                "dd/MM/yy"
+                                            )}
+                                        </p>
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                </>
+                            )}
                         </>
                     )}
                     <div
@@ -48,10 +154,17 @@ const ExerciseCard = ({
                             backgroundColor: "red",
                             borderRadius: "5px",
                         }}
+                        onClick={() =>
+                            !isEditing.get(item.id)
+                                ? setIsEditing(
+                                      (map) => new Map(map.set(item.id, true))
+                                  )
+                                : setIsEditing(
+                                      (map) => new Map(map.set(item.id, false))
+                                  )
+                        }
                     >
-                        <Link href={`/edit/${item.id}`}>
-                            <FiEdit />
-                        </Link>
+                        <FiEdit />
                     </div>
                     <div
                         style={{
