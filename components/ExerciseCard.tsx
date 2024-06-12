@@ -20,7 +20,7 @@ const ExerciseCard = ({
     const [isOpen, setIsOpen] = useState(new Map());
     const [isEditing, setIsEditing] = useState(new Map());
     // dataMap converts data from an array to a map with id as the key
-    const dataMap = {};
+    const dataMap: { [key: string]: any } = {};
     if (data) {
         for (const workout of data) {
             dataMap[workout.id] = workout;
@@ -30,7 +30,7 @@ const ExerciseCard = ({
     const handleSubmit = (e: any, itemId: any) => {
         e.preventDefault();
         const form = new FormData(e.currentTarget);
-        const body = {};
+        const body: { [key: string]: string | File } = {};
         for (const [key, value] of form.entries()) {
             body[key] = value;
             setExerciseData((prevData) => {
