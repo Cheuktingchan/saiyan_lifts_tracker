@@ -108,7 +108,7 @@ const Exercises = () => {
                 </div>
             )}
             <div className={styles.container}>
-                <Link href={`/create/new_exercise/${workout_id}`}>
+                <Link href={`/create/new_user_exercise`}>
                     <button
                         className={styles.button}
                         style={{
