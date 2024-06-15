@@ -7,7 +7,7 @@ import { BsTrash } from "react-icons/bs";
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import { useEffect, useState } from "react";
 
-// ExerciseCard is designed to hold all the cards per page rather than just being one card
+// ExerciseCards is designed to hold all the cards per page rather than just being one card
 const ExerciseCards = ({
     data,
     handleDelete,
@@ -46,6 +46,20 @@ const ExerciseCards = ({
         setIsEditing((map) => new Map(map.set(itemId, false)));
     };
 
+    useEffect(() => {
+        if (data) {
+            setExerciseData((prevData) => {
+                const updatedDataMap = { ...prevData }; // Create a shallow copy
+                updatedDataMap[data[0]["id"]] = {
+                    ...updatedDataMap[data[0]["id"]], // Copy the existing item
+                    ["loads"]: data[0]["loads"],
+                    ["reps"]: data[0]["reps"],
+                    ["sets"]: data[0]["sets"],
+                };
+                return updatedDataMap; // Return the updated data map
+            });
+        }
+    }, [data]);
     return (
         <div className={styles.exerciseContainer}>
             {data?.map((item) => (

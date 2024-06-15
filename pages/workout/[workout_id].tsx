@@ -1,5 +1,3 @@
-import Head from "next/head";
-import Image from "next/image";
 import styles from "../../styles/Home.module.css";
 import {
     useSession,
@@ -10,7 +8,7 @@ import Navbar from "../../components/Navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ExerciseCards from "../../components/ExerciseCards";
-import Link from "next/link";
+import NewExerciseButton from "../../components/NewExerciseButton";
 
 const Exercises = () => {
     const supabase = useSupabaseClient();
@@ -21,6 +19,8 @@ const Exercises = () => {
     const [username, setUsername] = useState<string | null>(null);
     const [exercises, setExercises] = useState<any[] | null>([]); // list of exercises
     const [loading, setLoading] = useState(true);
+    const emptyList: any[] = [];
+    const [userExerciseList, setUserExerciseList] = useState(emptyList);
 
     const { workout_id } = router.query;
 
@@ -135,6 +135,51 @@ const Exercises = () => {
             .eq("id", itemId)
             .eq("user_id", user?.id);
     };
+
+    const createExercise = async (body: any) => {
+        try {
+            const { data, error, status } = await supabase
+                .from("exercises")
+                .insert({
+                    title: body["title"],
+                    loads: body["loads"],
+                    reps: body["reps"],
+                    sets: body["sets"],
+                    user_id: user?.id,
+                    workout_id: workout_id,
+                })
+                .single();
+            getExercises(); // TODO: inefficient
+            if (error && status !== 406) {
+                throw error;
+            }
+        } catch (error: any) {
+            console.log(error);
+        }
+    };
+
+    async function getUserExercises() {
+        try {
+            let { data, error, status } = await supabase
+                .from("user_exercise")
+                .select(`title`)
+                .eq("user_created", user?.id);
+            if (error && status !== 406) {
+                throw error;
+            }
+
+            if (data) {
+                let data_str = [];
+                for (let i = 0; i < data.length; i++) {
+                    data_str.push(data[i].title);
+                }
+                setUserExerciseList(data_str);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    getUserExercises();
     return (
         <>
             <Navbar session={session}></Navbar>
@@ -148,16 +193,10 @@ const Exercises = () => {
                 </div>
             )}
             <div className={styles.container}>
-                <button
-                    className={styles.button}
-                    style={{
-                        textAlign: "center",
-                        marginTop: "5%",
-                        marginBottom: "5%",
-                    }}
-                >
-                    Create New<br></br> Exercise
-                </button>
+                <NewExerciseButton
+                    userExercises={userExerciseList}
+                    createExercise={createExercise}
+                ></NewExerciseButton>
             </div>
             <div className={styles.container}>
                 {exercises?.length === 0 ? (
