@@ -8,7 +8,7 @@ import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import { useEffect, useState } from "react";
 
 // ExerciseCard is designed to hold all the cards per page rather than just being one card
-const ExerciseCard = ({
+const ExerciseCards = ({
     data,
     handleDelete,
     updateExercise,
@@ -209,4 +209,4 @@ const ExerciseCard = ({
     );
 };
 
-export default ExerciseCard;
+export default ExerciseCards;

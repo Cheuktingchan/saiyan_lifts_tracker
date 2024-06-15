@@ -9,7 +9,7 @@ import {
 import Navbar from "../../components/Navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import ExerciseCard from "../../components/ExerciseCard";
+import ExerciseCards from "../../components/ExerciseCards";
 import Link from "next/link";
 
 const Exercises = () => {
@@ -148,18 +148,16 @@ const Exercises = () => {
                 </div>
             )}
             <div className={styles.container}>
-                <Link href={`/create/new_exercise/${workout_id}`}>
-                    <button
-                        className={styles.button}
-                        style={{
-                            textAlign: "center",
-                            marginTop: "5%",
-                            marginBottom: "5%",
-                        }}
-                    >
-                        Create New<br></br> Exercise
-                    </button>
-                </Link>
+                <button
+                    className={styles.button}
+                    style={{
+                        textAlign: "center",
+                        marginTop: "5%",
+                        marginBottom: "5%",
+                    }}
+                >
+                    Create New<br></br> Exercise
+                </button>
             </div>
             <div className={styles.container}>
                 {exercises?.length === 0 ? (
@@ -169,7 +167,7 @@ const Exercises = () => {
                 ) : (
                     <div className={styles.container}>
                         <p>Here are your exercises:</p>
-                        <ExerciseCard
+                        <ExerciseCards
                             data={exercises}
                             handleDelete={handleDelete}
                             updateExercise={updateExercise}

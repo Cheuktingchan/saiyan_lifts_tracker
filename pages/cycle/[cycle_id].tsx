@@ -9,7 +9,7 @@ import {
 import Navbar from "../../components/Navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import WorkoutCard from "../../components/WorkoutCard";
+import WorkoutCards from "../../components/WorkoutCards";
 import Link from "next/link";
 
 const Workouts = () => {
@@ -158,7 +158,7 @@ const Workouts = () => {
                 ) : (
                     <div className={styles.container}>
                         <p>Here are your workouts:</p>
-                        <WorkoutCard
+                        <WorkoutCards
                             data={workouts}
                             handleDelete={handleDelete}
                         />

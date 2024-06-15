@@ -81,7 +81,6 @@ const CreateNewExercise = () => {
         }
     }
     useEffect(() => {
-        console.log("got exercises");
         getExercises();
     }, []);
     return (

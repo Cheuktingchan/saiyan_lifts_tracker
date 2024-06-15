@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { NextRouter } from "next/router";
 import { BsTrash } from "react-icons/bs";
 
-const UserExerciseCard = ({
+const WorkoutCards = ({
     data,
     handleDelete,
 }: {
@@ -20,11 +20,16 @@ const UserExerciseCard = ({
                     className={styles.container}
                     style={{ height: "4em" }}
                 >
-                    <Link href={`/analytics/${item.id}`}>
+                    <Link href={`/workout/${item.id}`}>
                         <p className={styles.title}>
                             {" "}
-                            Exercise: {""}
+                            Workout: {""}
                             {item.title}
+                        </p>
+                        <p className={styles.title}>
+                            {" "}
+                            Date: {""}
+                            {format(parseISO(item.created_at), "dd/MM/yy")}
                         </p>
                     </Link>
 
@@ -48,4 +53,4 @@ const UserExerciseCard = ({
     );
 };
 
-export default UserExerciseCard;
+export default WorkoutCards;

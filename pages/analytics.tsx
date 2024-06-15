@@ -9,10 +9,10 @@ import {
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import ExerciseCard from "../components/ExerciseCard";
+import ExerciseCards from "../components/ExerciseCards";
 import Link from "next/link";
-import CycleCard from "../components/CycleCard";
-import UserExerciseCard from "../components/UserExerciseCard";
+import CycleCards from "../components/CycleCards";
+import UserExerciseCards from "../components/UserExerciseCards";
 
 const Exercises = () => {
     const supabase = useSupabaseClient();
@@ -129,7 +129,7 @@ const Exercises = () => {
                 ) : (
                     <div className={styles.container}>
                         <p>Here are your user exercises:</p>
-                        <UserExerciseCard
+                        <UserExerciseCards
                             data={exercises}
                             handleDelete={handleDelete}
                         />

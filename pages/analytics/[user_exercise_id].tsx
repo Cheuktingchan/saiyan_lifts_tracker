@@ -36,7 +36,6 @@ const Exercises = () => {
                 if (data) {
                     setExercises(data);
                 }
-                console.log(data);
             }
         };
         getExercisesFromWorkouts();

@@ -10,7 +10,7 @@ import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import CycleCard from "../components/CycleCard";
+import CycleCards from "../components/CycleCards";
 
 const Home = () => {
     const supabase = useSupabaseClient();
@@ -119,7 +119,7 @@ const Home = () => {
                 ) : (
                     <div className={styles.container}>
                         <p>Here are your cycles:</p>
-                        <CycleCard
+                        <CycleCards
                             data={workouts}
                             handleDelete={handleDelete}
                         />
