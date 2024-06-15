@@ -32,9 +32,8 @@ const CreateNewUserExercise = () => {
                 user_created: user?.id,
             })
             .single();
-        console.log(error, data);
         setExerciseData(initialState);
-        router.push("/");
+        router.push("/analytics");
     };
 
     return (
