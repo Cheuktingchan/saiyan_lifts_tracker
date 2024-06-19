@@ -134,6 +134,7 @@ const Exercises = () => {
             })
             .eq("id", itemId)
             .eq("user_id", user?.id);
+        getExercises();
     };
 
     const createExercise = async (body: any) => {
