@@ -110,12 +110,12 @@ const Exercises = () => {
         getWorkoutName();
     }, [session, router, supabase, user?.id, workout_id, supabase]);
 
-    const handleDelete = async (id: number) => {
+    const handleDelete = async (exercise_id: number) => {
         try {
             const { data, error } = await supabase
                 .from("sets")
                 .delete()
-                .eq("id", id)
+                .eq("exercise_id", exercise_id)
                 .eq("user_id", user?.id);
             getExercises();
             if (error) throw error;
