@@ -34,7 +34,7 @@ const CreateNewExercise = () => {
             setErrorMessage("");
             try {
                 const { data, error, status } = await supabase
-                    .from("exercises")
+                    .from("sets")
                     .insert({
                         title,
                         loads,

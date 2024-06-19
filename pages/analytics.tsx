@@ -30,7 +30,7 @@ const Exercises = () => {
             setLoading(true);
 
             let { data, error, status } = await supabase
-                .from("exercises")
+                .from("sets")
                 .select(`*`)
                 .eq("user_created", user?.id)
                 .order("inserted_at", { ascending: false });

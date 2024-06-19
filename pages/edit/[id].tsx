@@ -28,7 +28,7 @@ const Edit = () => {
             if (!id) return;
 
             const { data } = await supabase
-                .from("exercises")
+                .from("sets")
                 .select("*")
                 .filter("id", "eq", id)
                 .single();
@@ -46,7 +46,7 @@ const Edit = () => {
 
     const pushBackToWorkout = async () => {
         const { data } = await supabase
-            .from("exercises")
+            .from("sets")
             .select(`workout_id`)
             .eq("id", id)
             .eq("user_id", user?.id)
@@ -58,7 +58,7 @@ const Edit = () => {
     const updateExercise = async () => {
         const { title, loads, reps, sets } = exercise;
         const { data } = await supabase
-            .from("exercises")
+            .from("sets")
             .update({
                 title,
                 loads,

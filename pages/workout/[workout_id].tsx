@@ -29,7 +29,7 @@ const Exercises = () => {
             setLoading(true);
 
             let { data, error, status } = await supabase
-                .from("exercises")
+                .from("sets")
                 .select(`*`)
                 .eq("user_created", user?.id)
                 .order("inserted_at", { ascending: false });
@@ -51,7 +51,7 @@ const Exercises = () => {
         const getExercisesFromWorkout = async () => {
             if (router.isReady) {
                 let { data } = await supabase
-                    .from("exercises")
+                    .from("sets")
                     .select(`*`)
                     .filter("workout_id", "eq", workout_id)
                     .order("inserted_at", { ascending: false });
@@ -113,7 +113,7 @@ const Exercises = () => {
     const handleDelete = async (id: number) => {
         try {
             const { data, error } = await supabase
-                .from("exercises")
+                .from("sets")
                 .delete()
                 .eq("id", id)
                 .eq("user_id", user?.id);
@@ -126,7 +126,7 @@ const Exercises = () => {
 
     const updateExercise = async (body: any, itemId: any) => {
         const { data } = await supabase
-            .from("exercises")
+            .from("sets")
             .update({
                 loads: body["loads"],
                 reps: body["reps"],
@@ -137,25 +137,48 @@ const Exercises = () => {
     };
 
     const createExercise = async (body: any) => {
+        var thisExerciseId = -1;
+        var rowsToInsert = [];
+
         try {
             const { data, error, status } = await supabase
-                .from("exercises")
+                .from("sets")
                 .insert({
                     title: body["title"],
                     loads: body["loads"],
                     reps: body["reps"],
-                    sets: body["sets"],
                     user_id: user?.id,
                     workout_id: workout_id,
+                    set_num: 1,
                 })
+                .select("*")
                 .single();
-            getExercises(); // TODO: inefficient
+            if (data) {
+                console.log(data);
+                thisExerciseId = data.exercise_id;
+                for (var i = 1; i < body["sets"]; i++) {
+                    rowsToInsert.push({
+                        title: body["title"],
+                        loads: body["loads"],
+                        reps: body["reps"],
+                        user_id: user?.id,
+                        workout_id: workout_id,
+                        exercise_id: thisExerciseId,
+                        set_num: i + 1,
+                    });
+                }
+                const { data: restOfData, error: restOfError } = await supabase
+                    .from("sets")
+                    .insert(rowsToInsert);
+                console.log(restOfError);
+            }
             if (error && status !== 406) {
                 throw error;
             }
         } catch (error: any) {
             console.log(error);
         }
+        getExercises(); // TODO: inefficient
     };
 
     async function getUserExercises() {

@@ -29,7 +29,7 @@ const Exercises = () => {
         const getExercisesFromWorkouts = async () => {
             if (router.isReady) {
                 let { data } = await supabase
-                    .from("exercises")
+                    .from("sets")
                     .select(`*`)
                     .filter("title", "eq", userExerciseTitle)
                     .order("inserted_at", { ascending: true });
