@@ -70,14 +70,16 @@ const ExerciseCards = ({
     return (
         <>
             <div className={styles.exerciseContainer}>
-                {Object.keys(dataMap)?.map((exercise) => (
-                    <SingleExerciseCard
-                        key={exercise}
-                        exercise={dataMap[exercise]}
-                        handleDelete={handleDelete}
-                        handleSubmit={handleSubmit}
-                    />
-                ))}
+                {Object.keys(dataMap)
+                    .reverse()
+                    ?.map((exercise) => (
+                        <SingleExerciseCard
+                            key={exercise}
+                            exercise={dataMap[exercise]}
+                            handleDelete={handleDelete}
+                            handleSubmit={handleSubmit}
+                        />
+                    ))}
             </div>
         </>
     );
