@@ -61,7 +61,7 @@ const Home = () => {
                     setUsername(data.username);
                 }
             } catch (error) {
-                router.push("/login");
+                setUsername("User");
             } finally {
                 setLoading(false);
             }

@@ -1,18 +1,8 @@
-WIP:
-This is a PWA workout tracker designed to be performant and simple - perfect for use in the gym. Say goodbye to your notes app!
-
-https://saiyan-lifts-tracker.vercel.app/
-
-Starting supabase locally:
-
-Running next project:
-
-1.
-
 # Saiyan Lifts Tracker
 
 WIP:
 This is a PWA workout tracker designed to be performant and simple - perfect for use in the gym. Say goodbye to your notes app!
+https://saiyan-lifts-tracker.vercel.app/
 
 ## Features
 
@@ -26,3 +16,9 @@ This is a PWA workout tracker designed to be performant and simple - perfect for
 2. Install dependencies: `npm install`
 3. Set the following environment variables in `/.env.local` : `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 4. Start development server: `npm run dev`
+
+## Supabase Local Config
+
+1. `npx supabase init`
+2. `npx supabase start` (must have Docker installed)
+3. `npx supabase db reset`
