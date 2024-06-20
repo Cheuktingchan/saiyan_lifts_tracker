@@ -203,7 +203,9 @@ const Exercises = () => {
             console.log(error);
         }
     }
-    getUserExercises();
+    useEffect(() => {
+        getUserExercises();
+    }, []);
     return (
         <>
             <Navbar session={session}></Navbar>

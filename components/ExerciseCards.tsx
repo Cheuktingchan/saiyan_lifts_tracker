@@ -70,7 +70,7 @@ const ExerciseCards = ({
     return (
         <>
             <div className={styles.exerciseContainer}>
-                {Object.keys(exerciseData)?.map((exercise) => (
+                {Object.keys(dataMap)?.map((exercise) => (
                     <SingleExerciseCard
                         key={exercise}
                         exercise={dataMap[exercise]}
