@@ -1,7 +1,7 @@
 import styles from "../styles/ExerciseCard.module.css";
 import { parseISO } from "date-fns";
 import { format } from "date-fns";
-import { FiEdit } from "react-icons/fi";
+import { FiEdit, FiSave } from "react-icons/fi";
 import { useRouter } from "next/router";
 import {
     useSession,
@@ -24,7 +24,7 @@ const SingleExerciseCard = ({
     const firstSet = exercise[Object.keys(exercise)[0]];
     const thisExerciseId = firstSet.exercise_id;
     const [isOpen, setIsOpen] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
+    const [isEditing, setIsEditing] = useState(new Map());
     return (
         <div key={thisExerciseId} className={styles.container}>
             <p className={styles.title}>
@@ -36,103 +36,141 @@ const SingleExerciseCard = ({
                 <>
                     {Object.keys(exercise)?.map((set) => (
                         <>
-                            {!isEditing ? (
-                                <>
-                                    <p className={styles.load}>
-                                        {" "}
-                                        Load (kg): {"  "}
-                                        {exercise[set]["loads"]}
-                                    </p>
-                                    <p className={styles.reps}>
-                                        Reps:{exercise[set]["reps"]}
-                                    </p>
-                                    <p className={styles.time}>
-                                        {format(
-                                            parseISO(
-                                                exercise[set]["inserted_at"]
-                                            ),
-                                            "dd/MM/yy"
-                                        )}
-                                    </p>
-                                </>
-                            ) : (
-                                <>
-                                    <form
-                                        onSubmit={(event) => {
-                                            handleSubmit(
-                                                event,
-                                                thisExerciseId,
-                                                set
-                                            );
-                                            setIsEditing(false);
-                                        }}
-                                    >
+                            <div style={{ display: "flex" }}>
+                                {!isEditing.get(set) ? (
+                                    <>
+                                        <div
+                                            style={{
+                                                height: "28px",
+                                                border: "2px solid black",
+                                                backgroundColor: "red",
+                                                borderRadius: "5px",
+                                            }}
+                                            onClick={() =>
+                                                !isEditing.get(set)
+                                                    ? setIsEditing(
+                                                          (map) =>
+                                                              new Map(
+                                                                  map.set(
+                                                                      set,
+                                                                      true
+                                                                  )
+                                                              )
+                                                      )
+                                                    : setIsEditing(
+                                                          (map) =>
+                                                              new Map(
+                                                                  map.set(
+                                                                      set,
+                                                                      false
+                                                                  )
+                                                              )
+                                                      )
+                                            }
+                                        >
+                                            <FiEdit size={24} />
+                                        </div>
                                         <p className={styles.load}>
                                             {" "}
-                                            Load (kg): {""}
-                                            <input
+                                            Load (kg): {exercise[set]["loads"]},
+                                            Reps: {exercise[set]["reps"]}
+                                        </p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <button
+                                                type="submit"
+                                                form={set}
                                                 style={{
-                                                    width: "25%",
+                                                    height: "28px",
+                                                    width: "28px",
+                                                    border: "2px solid black",
+                                                    backgroundColor: "red",
+                                                    borderRadius: "5px",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    padding: "0px",
                                                 }}
-                                                type="number"
-                                                name="loads"
-                                                className={styles.load}
-                                                autoComplete="on"
-                                                list="suggestions"
-                                                defaultValue={
-                                                    exercise[set]["loads"]
-                                                }
-                                            />
-                                        </p>
-                                        <p className={styles.reps}>
-                                            {" "}
-                                            Reps: {""}
-                                            <input
+                                            >
+                                                <FiSave
+                                                    size={24}
+                                                    color={"black"}
+                                                />
+                                            </button>
+                                            <form
+                                                id={set}
                                                 style={{
-                                                    width: "25%",
+                                                    width: "75%",
                                                 }}
-                                                type="number"
-                                                name="reps"
-                                                className={styles.reps}
-                                                autoComplete="on"
-                                                list="suggestions"
-                                                defaultValue={
-                                                    exercise[set]["reps"]
-                                                }
-                                            />
-                                        </p>
-                                        <p className={styles.time}>
-                                            {format(
-                                                parseISO(
-                                                    exercise[set]["inserted_at"]
-                                                ),
-                                                "dd/MM/yy"
-                                            )}
-                                        </p>
-                                        <button type="submit">Submit</button>
-                                    </form>
-                                </>
-                            )}
+                                                onSubmit={(event) => {
+                                                    handleSubmit(
+                                                        event,
+                                                        thisExerciseId,
+                                                        set
+                                                    );
+                                                    setIsEditing(
+                                                        (map) =>
+                                                            new Map(
+                                                                map.set(
+                                                                    set,
+                                                                    false
+                                                                )
+                                                            )
+                                                    );
+                                                }}
+                                            >
+                                                <p className={styles.load}>
+                                                    {" "}
+                                                    Load (kg):
+                                                    <input
+                                                        style={{
+                                                            width: "20%",
+                                                        }}
+                                                        type="number"
+                                                        name="loads"
+                                                        className={styles.load}
+                                                        autoComplete="on"
+                                                        list="suggestions"
+                                                        defaultValue={
+                                                            exercise[set][
+                                                                "loads"
+                                                            ]
+                                                        }
+                                                    />
+                                                    Reps: {""}
+                                                    <input
+                                                        style={{
+                                                            width: "20%",
+                                                        }}
+                                                        type="number"
+                                                        name="reps"
+                                                        className={styles.reps}
+                                                        autoComplete="on"
+                                                        list="suggestions"
+                                                        defaultValue={
+                                                            exercise[set][
+                                                                "reps"
+                                                            ]
+                                                        }
+                                                    />
+                                                </p>
+                                            </form>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
                         </>
                     ))}
                 </>
             )}
-            <div
-                style={{
-                    height: "28px",
-                    position: "absolute",
-                    left: "-14px",
-                    top: "-14px",
-                    border: "2px solid black",
-                    backgroundColor: "red",
-                    borderRadius: "5px",
-                }}
-                onClick={() =>
-                    !isEditing ? setIsEditing(true) : setIsEditing(false)
-                }
-            >
-                <FiEdit />
-            </div>
             <div
                 style={{
                     height: "28px",
