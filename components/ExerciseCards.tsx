@@ -54,28 +54,31 @@ const ExerciseCards = ({
     };
 
     useEffect(() => {
+        //TODO: a bit inefficient but covers both deletion and insertion
+        console.log(exerciseData);
         if (data) {
-            setExerciseData((prevData) => {
-                const updatedDataMap = { ...prevData }; // Create a shallow copy
-                updatedDataMap[data[0]["id"]] = {
-                    ...updatedDataMap[data[0]["id"]], // Copy the existing item
-                    ["loads"]: data[0]["loads"],
-                    ["reps"]: data[0]["reps"],
-                    ["title"]: data[0]["title"],
-                };
-                return updatedDataMap; // Return the updated data map
-            });
+            for (const set of data) {
+                const exerciseId = set.exercise_id;
+                const setId = set.id;
+                if (!dataMap[exerciseId]) {
+                    dataMap[exerciseId] = {};
+                }
+
+                dataMap[exerciseId][setId] = set;
+            }
         }
+        setExerciseData(dataMap);
     }, [data]);
+
     return (
         <>
             <div className={styles.exerciseContainer}>
-                {Object.keys(dataMap)
+                {Object.keys(exerciseData)
                     .reverse()
                     ?.map((exercise) => (
                         <SingleExerciseCard
                             key={exercise}
-                            exercise={dataMap[exercise]}
+                            exercise={exerciseData[exercise]}
                             handleDelete={handleDelete}
                             handleSubmit={handleSubmit}
                         />

@@ -36,7 +36,7 @@ const SingleExerciseCard = ({
                 <>
                     {Object.keys(exercise)?.map((set) => (
                         <>
-                            <div style={{ display: "flex" }}>
+                            <div style={{ display: "flex" }} key={set}>
                                 {!isEditing.get(set) ? (
                                     <>
                                         <div

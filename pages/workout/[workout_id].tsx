@@ -117,11 +117,11 @@ const Exercises = () => {
                 .delete()
                 .eq("exercise_id", exercise_id)
                 .eq("user_id", user?.id);
-            getExercises();
             if (error) throw error;
         } catch (error: any) {
             console.log(error.message);
         }
+        getExercises();
     };
 
     const updateExercise = async (body: any, itemId: any) => {
