@@ -55,7 +55,6 @@ const ExerciseCards = ({
 
     useEffect(() => {
         //TODO: a bit inefficient but covers both deletion and insertion
-        console.log(exerciseData);
         if (data) {
             for (const set of data) {
                 const exerciseId = set.exercise_id;

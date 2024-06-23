@@ -36,15 +36,27 @@ const SingleExerciseCard = ({
                 <>
                     {Object.keys(exercise)?.map((set) => (
                         <>
-                            <div style={{ display: "flex" }} key={set}>
+                            <div
+                                style={{
+                                    display: "flex",
+                                }}
+                            >
                                 {!isEditing.get(set) ? (
                                     <>
+                                        <p className={styles.load}>
+                                            {" "}
+                                            Load (kg): {exercise[set]["loads"]},
+                                            Reps: {exercise[set]["reps"]}
+                                        </p>
                                         <div
+                                            key={set}
                                             style={{
                                                 height: "28px",
                                                 border: "2px solid black",
                                                 backgroundColor: "red",
                                                 borderRadius: "5px",
+                                                right: "1rem",
+                                                position: "absolute",
                                             }}
                                             onClick={() =>
                                                 !isEditing.get(set)
@@ -70,41 +82,17 @@ const SingleExerciseCard = ({
                                         >
                                             <FiEdit size={24} />
                                         </div>
-                                        <p className={styles.load}>
-                                            {" "}
-                                            Load (kg): {exercise[set]["loads"]},
-                                            Reps: {exercise[set]["reps"]}
-                                        </p>
                                     </>
                                 ) : (
                                     <>
                                         <div
+                                            key={set}
                                             style={{
                                                 display: "flex",
                                                 justifyContent: "center",
                                                 alignItems: "center",
                                             }}
                                         >
-                                            <button
-                                                type="submit"
-                                                form={set}
-                                                style={{
-                                                    height: "28px",
-                                                    width: "28px",
-                                                    border: "2px solid black",
-                                                    backgroundColor: "red",
-                                                    borderRadius: "5px",
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    padding: "0px",
-                                                }}
-                                            >
-                                                <FiSave
-                                                    size={24}
-                                                    color={"black"}
-                                                />
-                                            </button>
                                             <form
                                                 id={set}
                                                 style={{
@@ -163,6 +151,28 @@ const SingleExerciseCard = ({
                                                     />
                                                 </p>
                                             </form>
+                                            <button
+                                                type="submit"
+                                                form={set}
+                                                style={{
+                                                    height: "28px",
+                                                    width: "28px",
+                                                    border: "2px solid black",
+                                                    backgroundColor: "red",
+                                                    borderRadius: "5px",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    padding: "0px",
+                                                    right: "1rem",
+                                                    position: "absolute",
+                                                }}
+                                            >
+                                                <FiSave
+                                                    size={24}
+                                                    color={"black"}
+                                                />
+                                            </button>
                                         </div>
                                     </>
                                 )}
