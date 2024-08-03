@@ -8,8 +8,7 @@ https://saiyan-lifts-tracker.vercel.app/
 
 -   Log workouts with details (exercises, sets, reps, weight).
 -   Track progress over time with charts and statistics.
--   Set goals and track your progress towards them.
-
+-   Organise your sets and exercises into cycles.
 ## Installation
 
 1. Clone this repository: `git clone https://github.com/your-username/workout-tracker.git`
