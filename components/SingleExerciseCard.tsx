@@ -39,22 +39,66 @@ const SingleExerciseCard = ({
                             <div
                                 style={{
                                     display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
                                 }}
                             >
                                 {!isEditing.get(set) ? (
                                     <>
-                                        <p className={styles.load}>
+                                        <p
+                                            className={styles.load}
+                                            style={{
+                                                width: "75%",
+                                                height: "5vh",
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                            }}
+                                        >
                                             {" "}
-                                            Load (kg): {exercise[set]["loads"]},
-                                            Reps: {exercise[set]["reps"]}
+                                            Load (kg):
+                                            <input
+                                                disabled={true}
+                                                style={{
+                                                    width: "20%",
+                                                }}
+                                                type="number"
+                                                name="loads"
+                                                className={styles.load}
+                                                autoComplete="on"
+                                                list="suggestions"
+                                                defaultValue={
+                                                    exercise[set]["loads"]
+                                                }
+                                            />
+                                            Reps: {""}
+                                            <input
+                                                disabled={true}
+                                                style={{
+                                                    width: "20%",
+                                                }}
+                                                type="number"
+                                                name="reps"
+                                                className={styles.reps}
+                                                autoComplete="on"
+                                                list="suggestions"
+                                                defaultValue={
+                                                    exercise[set]["reps"]
+                                                }
+                                            />
                                         </p>
-                                        <div
+                                        <button
                                             key={set}
                                             style={{
                                                 height: "28px",
+                                                width: "28px",
                                                 border: "2px solid black",
                                                 backgroundColor: "red",
                                                 borderRadius: "5px",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                padding: "0px",
                                                 right: "1rem",
                                                 position: "absolute",
                                             }}
@@ -65,23 +109,23 @@ const SingleExerciseCard = ({
                                                               new Map(
                                                                   map.set(
                                                                       set,
-                                                                      true
-                                                                  )
-                                                              )
+                                                                      true,
+                                                                  ),
+                                                              ),
                                                       )
                                                     : setIsEditing(
                                                           (map) =>
                                                               new Map(
                                                                   map.set(
                                                                       set,
-                                                                      false
-                                                                  )
-                                                              )
+                                                                      false,
+                                                                  ),
+                                                              ),
                                                       )
                                             }
                                         >
-                                            <FiEdit size={24} />
-                                        </div>
+                                            <FiEdit size={24} color="black" />
+                                        </button>
                                     </>
                                 ) : (
                                     <>
@@ -102,20 +146,29 @@ const SingleExerciseCard = ({
                                                     handleSubmit(
                                                         event,
                                                         thisExerciseId,
-                                                        set
+                                                        set,
                                                     );
                                                     setIsEditing(
                                                         (map) =>
                                                             new Map(
                                                                 map.set(
                                                                     set,
-                                                                    false
-                                                                )
-                                                            )
+                                                                    false,
+                                                                ),
+                                                            ),
                                                     );
                                                 }}
                                             >
-                                                <p className={styles.load}>
+                                                <p
+                                                    className={styles.load}
+                                                    style={{
+                                                        height: "5vh",
+                                                        display: "flex",
+                                                        justifyContent:
+                                                            "center",
+                                                        alignItems: "center",
+                                                    }}
+                                                >
                                                     {" "}
                                                     Load (kg):
                                                     <input

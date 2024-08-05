@@ -40,7 +40,9 @@ export default function App({ Component, pageProps }: AppProps) {
                     style={{ padding: "0", margin: "0", float: "right" }}
                 >
                     <Link href="/analytics">
-                        <button className={styles.buttons}>Analytics</button>
+                        <button className={styles.buttons}>
+                            Your<br></br>Exercises
+                        </button>
                     </Link>
                 </ul>
             </footer>
