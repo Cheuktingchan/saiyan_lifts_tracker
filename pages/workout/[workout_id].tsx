@@ -155,7 +155,6 @@ const Exercises = () => {
                 .select("*")
                 .single();
             if (data) {
-                console.log(data);
                 thisExerciseId = data.exercise_id;
                 for (var i = 1; i < body["sets"]; i++) {
                     rowsToInsert.push({

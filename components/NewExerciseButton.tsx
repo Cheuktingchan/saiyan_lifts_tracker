@@ -107,7 +107,7 @@ const NewExerciseButton = ({
                             style={{
                                 height: "28px",
                                 position: "absolute",
-                                right: "-14px",
+                                left: "-14px",
                                 top: "-14px",
                                 border: "2px solid black",
                                 backgroundColor: "red",
