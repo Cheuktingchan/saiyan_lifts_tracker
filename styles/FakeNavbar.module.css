@@ -1,0 +1,52 @@
+.container {
+    z-index: 1000;
+    position: relative;
+    top: 0;
+    width: 100%;
+    background-color: #6eb720;
+    color: black;
+    padding-left: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    font-family: Monofonto, sans-serif;
+    border-bottom: 2px solid black;
+}
+
+.navContent {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    border-left: 2px solid black;
+    font-size: 1.2rem;
+    font-weight: 500;
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.name {
+    margin-right: 2rem;
+    color: black;
+    cursor: pointer;
+}
+
+.buttons {
+    border-radius: 0px;
+    border-left: 2px solid black;
+    border-right: transparent;
+    border-bottom: transparent;
+    border-top: transparent;
+    height: 64px;
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    font-family: Monofonto, sans-serif;
+    font-size: 1rem;
+}
