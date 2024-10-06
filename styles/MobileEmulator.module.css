@@ -1,0 +1,23 @@
+.desktopContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    background-color: black; /* Black bars around the mobile view */
+}
+
+.mobileContainer {
+    overflow-x: hidden !important;
+    width: 375px; /* Width of a typical mobile device (e.g., iPhone 12) */
+    height: 812px; /* Height of a typical mobile device */
+    background-color: #f9b89f; /* Background color of your mobile app */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional: Shadow for better visual effect */
+    border-radius: 30px; /* Optional: Add a border radius to emulate phone edges */
+    overflow-y: auto; /* Scroll if content overflows */
+}
+
+@media (max-width: 768px) {
+    .desktopContainer {
+        display: none;
+    }
+}

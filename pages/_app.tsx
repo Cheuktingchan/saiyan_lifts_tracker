@@ -10,42 +10,46 @@ import {
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import Navbar from "../components/Navbar";
 import Link from "next/link";
+import MobileEmulator from "../components/MobileEmulator";
 
 export default function App({ Component, pageProps }: AppProps) {
     const [supabase] = useState(() => createBrowserSupabaseClient());
 
     return (
         <>
-            <SessionContextProvider
-                supabaseClient={supabase}
-                initialSession={pageProps.initialSession}
-            >
-                <Component {...pageProps} />
-            </SessionContextProvider>
-            <footer
-                style={{
-                    backgroundColor: "#8e3f9b",
-                    position: "fixed",
-                    bottom: "0px",
-                    left: "0px",
-                    right: "0px",
-                    height: "64px",
-                    marginBottom: "0px",
-                    borderTop: "2px solid black",
-                    justifyContent: "space-between",
-                }}
-            >
-                <ul
-                    className={styles.navContent}
-                    style={{ padding: "0", margin: "0", float: "right" }}
+            <MobileEmulator>
+                <SessionContextProvider
+                    supabaseClient={supabase}
+                    initialSession={pageProps.initialSession}
                 >
-                    <Link href="/analytics">
-                        <button className={styles.buttons}>
-                            Your<br></br>Exercises
-                        </button>
-                    </Link>
-                </ul>
-            </footer>
+                    <Component {...pageProps} />
+                </SessionContextProvider>
+                <footer
+                    className="footer"
+                    style={{
+                        backgroundColor: "#8e3f9b",
+                        position: "sticky",
+                        bottom: "0px",
+                        left: "0px",
+                        right: "0px",
+                        height: "64px",
+                        marginBottom: "0px",
+                        borderTop: "2px solid black",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    <ul
+                        className={styles.navContent}
+                        style={{ padding: "0", margin: "0", float: "right" }}
+                    >
+                        <Link href="/analytics">
+                            <button className={styles.buttons}>
+                                Your<br></br>Exercises
+                            </button>
+                        </Link>
+                    </ul>
+                </footer>
+            </MobileEmulator>
         </>
     );
 }

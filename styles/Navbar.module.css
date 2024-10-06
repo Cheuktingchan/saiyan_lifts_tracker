@@ -1,6 +1,6 @@
 .container {
     z-index: 1000;
-    position: fixed;
+    position: relative;
     top: 0;
     width: 100%;
     background-color: #6eb720;
@@ -49,4 +49,10 @@
     transition: all 0.3s ease-in-out;
     font-family: Monofonto, sans-serif;
     font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: 375px;
+    }
 }

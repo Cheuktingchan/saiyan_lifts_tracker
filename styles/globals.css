@@ -50,3 +50,16 @@ input {
     font-family: "Monofonto";
     src: url("~/fonts/monofonto rg.otf");
 }
+
+/* Apply styles to keep mobile aspect ratio on larger screens */
+@media (min-width: 768px) {
+    .app-container {
+        width: 375px;
+        height: 667px;
+        margin-left: calc(50vw - 187px);
+    }
+    .footer {
+        width: 375px;
+        /* Add borders or background to show empty space on desktop */
+    }
+}
