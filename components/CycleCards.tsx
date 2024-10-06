@@ -37,8 +37,8 @@ const CycleCards = ({
                         style={{
                             height: "28px",
                             position: "absolute",
-                            right: "-14px",
-                            top: "-14px",
+                            left: "0.6rem",
+                            top: "0.6rem",
                             border: "2px solid black",
                             backgroundColor: "red",
                             borderRadius: "5px",
