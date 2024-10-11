@@ -3,15 +3,28 @@
     position: relative;
     top: 0;
     width: 100%;
-    background-color: #6eb720;
+    background-color: #e76a24;
     color: black;
     padding-left: 0.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 64px;
+    height: 100px;
     font-family: Monofonto, sans-serif;
-    border-bottom: 2px solid black;
+}
+
+.logo {
+    position: absolute; /* Position absolutely to the center */
+    left: 50%; /* Start 50% from the left */
+    transform: translateX(-50%); /* Shift back by 50% of its width to center */
+}
+
+.login {
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    background-color: transparent;
+    color: black;
 }
 
 .navContent {

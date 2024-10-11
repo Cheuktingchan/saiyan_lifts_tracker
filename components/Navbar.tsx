@@ -3,36 +3,40 @@ import Link from "next/link";
 import styles from "../styles/Navbar.module.css";
 import Image from "next/image";
 import { relative } from "path";
+import { BsBoxArrowInRight, BsBoxArrowRight, BsPerson } from "react-icons/bs";
 
 const Navbar = ({ session }: { session: Session | null }) => {
     const supabase = useSupabaseClient();
     return (
         <div className={styles.container}>
-            <Link href="/">
-                <Image src="/logo.svg" alt="Logo" height="48" width="48" />
-            </Link>
-            <div>
-                <p className={styles.title}>Saiyan Lifts Tracker</p>{" "}
-            </div>
+            <div></div>
             {session ? (
-                <ul className={styles.navContent}>
+                <div>
+                    <Link href="/account">
+                        <button className={styles.account}>
+                            <BsPerson size={35} />
+                        </button>
+                    </Link>
                     <button
-                        className={styles.buttons}
+                        className={styles.login}
                         onClick={() => supabase.auth.signOut()}
                     >
-                        Logout
+                        <BsBoxArrowInRight size={35} />
                     </button>
-                    <Link href="/account">
-                        <button className={styles.buttons}>Account</button>
-                    </Link>
-                </ul>
+                </div>
             ) : (
-                <ul className={styles.navContent}>
-                    <Link href="/login">
-                        <button className={styles.buttons}>Login</button>
+                <div className={styles.login}>
+                    <Link
+                        href="/login"
+                        style={{ width: "40px", height: "40px" }}
+                    >
+                        <BsBoxArrowInRight size={35} />
                     </Link>
-                </ul>
+                </div>
             )}
+            <Link href="/" className={styles.logo}>
+                <Image src="/logo.svg" alt="Logo" height="100" width="100" />
+            </Link>
         </div>
     );
 };

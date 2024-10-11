@@ -12,7 +12,7 @@ import styled from "styled-components";
 const S = {
     div: styled.div`
         width: 100%;
-        margin-top: 5%;
+        margin-top: 50px;
         margin-bottom: 5%;
         align-items: center;
         text-align: center;
@@ -41,7 +41,7 @@ export default function Account() {
                 let { data, error, status } = await supabase
                     .from("profiles")
                     .select(
-                        `username, bodyweight, squat, bench, deadlift, avatar_url`
+                        `username, bodyweight, squat, bench, deadlift, avatar_url`,
                     )
                     .eq("id", user?.id)
                     .single();

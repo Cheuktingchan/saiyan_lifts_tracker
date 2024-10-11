@@ -8,9 +8,9 @@ import {
     useSession,
 } from "@supabase/auth-helpers-react";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import Navbar from "../components/Navbar";
 import Link from "next/link";
 import DesktopDisclaimer from "../components/desktop/DesktopDisclaimer";
+import { BsBarChart } from "react-icons/bs";
 
 export default function App({ Component, pageProps }: AppProps) {
     const [supabase] = useState(() => createBrowserSupabaseClient());
@@ -43,28 +43,29 @@ export default function App({ Component, pageProps }: AppProps) {
                     </SessionContextProvider>
                     <footer
                         style={{
-                            backgroundColor: "#8e3f9b",
+                            backgroundColor: "white",
                             position: "fixed",
                             bottom: "0px",
                             left: "0px",
                             right: "0px",
                             height: "64px",
                             marginBottom: "0px",
-                            borderTop: "2px solid black",
                             justifyContent: "space-between",
                         }}
                     >
                         <ul
-                            className={styles.navContent}
+                            className={styles.login}
                             style={{
                                 padding: "0",
                                 margin: "0",
-                                float: "right",
+                                border: "0",
+                                right: "20px",
+                                height: "auto",
                             }}
                         >
                             <Link href="/analytics">
                                 <button className={styles.buttons}>
-                                    Your<br></br>Exercises
+                                    <BsBarChart size={35} />
                                 </button>
                             </Link>
                         </ul>

@@ -1,21 +1,22 @@
 import Link from "next/link";
 import styles from "../../styles/FakeNavbar.module.css";
 import Image from "next/image";
+import { BsBoxArrowInRight } from "react-icons/bs";
 
 const FakeNavbar = ({ data }: any) => {
     return (
         <div className={styles.container}>
-            <Link href="/">
-                <Image src="/logo.svg" alt="Logo" height="48" width="48" />
-            </Link>
+            <div></div>
             <div>
-                <p className={styles.title}>Saiyan Lifts Tracker</p>{" "}
-            </div>
-            <ul className={styles.navContent}>
                 <Link href="/">
-                    <button className={styles.buttons}>Login</button>
+                    <button className={styles.login}>
+                        <BsBoxArrowInRight size={35} />
+                    </button>
                 </Link>
-            </ul>
+            </div>
+            <Link href="/" className={styles.logo}>
+                <Image src="/logo.svg" alt="Logo" height="100" width="100" />
+            </Link>
         </div>
     );
 };

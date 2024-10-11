@@ -22,7 +22,7 @@ html {
 body {
     height: 100%;
     color: black;
-    background: #f9b89f;
+    background: #e7e5e8;
     font-size: 1.5rem;
 }
 
@@ -32,7 +32,7 @@ button {
     border-radius: 3px;
     color-scheme: dark;
     font-family: Monofonto, sans-serif;
-    background: #8e3f9b;
+    background: #1c4595;
     font-size: 1.5rem;
 }
 
@@ -73,7 +73,7 @@ input {
     overflow-x: hidden !important;
     width: 375px; /* Width of a typical mobile device (e.g., iPhone 12) */
     height: 812px; /* Height of a typical mobile device */
-    background-color: #f9b89f; /* Background color of your mobile app */
+    background-color: #e7e5e8; /* Background color of your mobile app */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional: Shadow for better visual effect */
     border-radius: 30px; /* Optional: Add a border radius to emulate phone edges */
     overflow-y: auto; /* Scroll if content overflows */

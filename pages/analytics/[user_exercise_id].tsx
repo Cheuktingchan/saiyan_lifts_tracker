@@ -16,7 +16,7 @@ const Exercises = () => {
     const user = useUser();
     const router = useRouter();
     const [userExerciseTitle, setUserExerciseTitle] = useState<string | null>(
-        null
+        null,
     );
     const [username, setUsername] = useState<string | null>(null);
     const [exercises, setExercises] = useState<any[] | null>([]); // list of exercises
@@ -45,15 +45,16 @@ const Exercises = () => {
         const getChartData = async () => {
             setChartData({
                 labels: exercises?.map((data) =>
-                    format(parseISO(data.inserted_at), "dd/MM/yy")
+                    format(parseISO(data.inserted_at), "dd/MM/yy"),
                 ),
                 datasets: [
                     {
                         label: "1RM Score",
                         data: exercises?.map(
-                            (data) => data.loads / (1.0278 - 0.0278 * data.reps) //1RM formula
+                            (data) =>
+                                data.loads / (1.0278 - 0.0278 * data.reps), //1RM formula
                         ),
-                        backgroundColor: ["#6EB720"],
+                        backgroundColor: ["#E76A24"],
                         borderColor: "black",
                         color: "black",
                     },

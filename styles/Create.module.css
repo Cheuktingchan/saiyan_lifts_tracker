@@ -12,7 +12,7 @@
 }
 
 .form {
-    background-color: #6eb720;
+    background-color: #e76a24;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -38,7 +38,7 @@
     border: 2px solid black;
     border-radius: 0.4rem;
     outline: none;
-    background-color: #579031;
+    background-color: #e76a24;
     color: white;
 }
 
