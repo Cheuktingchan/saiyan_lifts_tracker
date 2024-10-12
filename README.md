@@ -1,13 +1,14 @@
 # Saiyan Lifts Tracker
 
-This is a workout tracker deployed as a mobile web app. It is designed to be performant and minimalistic using ethnographic testing - perfect for use in the gym. Say goodbye to your notes app!
+This is a workout tracker deployed as a mobile web app. It is designed to be performant and minimalistic by using ethnographic testing - perfect for use in the gym. Say goodbye to your notes app!
 https://saiyan-lifts-tracker.vercel.app/
 
 ## Features
 
--   Log workouts with details (exercises, sets, reps, weight).
+-   Quickly log workouts with details (exercises, sets, reps, weight).
 -   Track progress over time with charts and statistics.
 -   Organise your sets and exercises into cycles.
+-   Gamify your training and push through plateaus!
 ## Installation
 
 1. Clone this repository: `git clone https://github.com/your-username/workout-tracker.git`
