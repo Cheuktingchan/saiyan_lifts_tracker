@@ -1,6 +1,5 @@
 # Saiyan Lifts Tracker
 
-WIP:
 This is a workout tracker deployed as a mobile web app. It is designed to be performant and minimalistic using ethnographic testing - perfect for use in the gym. Say goodbye to your notes app!
 https://saiyan-lifts-tracker.vercel.app/
 
