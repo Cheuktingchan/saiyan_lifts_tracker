@@ -127,7 +127,7 @@ const NewExerciseButton = ({
                 <button
                     className={homeStyles.button}
                     style={{
-                        position: "absolute",
+                        position: "fixed",
                         left: "50%",
                         transform: "translateX(-50%)",
                         bottom: "0px",

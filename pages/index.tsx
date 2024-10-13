@@ -117,7 +117,7 @@ const Home = () => {
                 <button
                     className={styles.button}
                     style={{
-                        position: "absolute",
+                        position: "fixed",
                         left: "50%",
                         transform: "translateX(-50%)",
                         bottom: "0px",

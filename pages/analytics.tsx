@@ -112,12 +112,20 @@ const Exercises = () => {
                     <button
                         className={styles.button}
                         style={{
-                            textAlign: "center",
-                            marginTop: "5%",
-                            marginBottom: "5%",
+                            position: "fixed",
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            bottom: "0px",
+                            zIndex: "100",
+                            background: "transparent",
                         }}
                     >
-                        Add New<br></br> Exercise
+                        <Image
+                            src="/1starball.svg"
+                            alt="Logo"
+                            height="75"
+                            width="75"
+                        />
                     </button>
                 </Link>
             </div>
