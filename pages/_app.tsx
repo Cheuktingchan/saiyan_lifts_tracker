@@ -48,30 +48,24 @@ export default function App({ Component, pageProps }: AppProps) {
                             bottom: "0px",
                             left: "0px",
                             right: "0px",
-                            height: "64px",
+                            height: "100px",
                             marginBottom: "0px",
                             justifyContent: "space-between",
+                            display: "flex",
                         }}
                     >
                         <ul
-                            className={styles.login}
+                            className={styles.analytics}
                             style={{
                                 padding: "0",
                                 margin: "0",
                                 border: "0",
-                                right: "20px",
+                                right: "5px",
                                 height: "auto",
-                                bottom: "20px",
                             }}
                         >
                             <Link href="/analytics">
-                                <button
-                                    className={styles.buttons}
-                                    style={{
-                                        right: "20px",
-                                        height: "auto",
-                                    }}
-                                >
+                                <button className={styles.buttons}>
                                     <BsBarChart size={35} />
                                 </button>
                             </Link>

@@ -136,25 +136,7 @@ const Workouts = () => {
                     Welcome lifter. Go to account and enter your details!
                 </div>
             )}
-            <div className={styles.container}>
-                <Link href={`/create/new_workout/${cycle_id}`}>
-                    <button
-                        className={styles.button}
-                        style={{
-                            textAlign: "center",
-                            marginTop: "5%",
-                            marginBottom: "5%",
-                        }}
-                    >
-                        <Image
-                            src="/1starball.svg"
-                            alt="Logo"
-                            height="100"
-                            width="100"
-                        />
-                    </button>
-                </Link>
-            </div>
+            <div className={styles.container}></div>
             <div className={styles.container}>
                 {workouts?.length === 0 ? (
                     <div>
@@ -170,6 +152,26 @@ const Workouts = () => {
                     </div>
                 )}
             </div>
+            <Link href={`/create/new_workout/${cycle_id}`}>
+                <button
+                    className={styles.button}
+                    style={{
+                        position: "absolute",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        bottom: "0px",
+                        zIndex: "100",
+                        background: "transparent",
+                    }}
+                >
+                    <Image
+                        src="/1starball.svg"
+                        alt="Logo"
+                        height="75"
+                        width="75"
+                    />
+                </button>
+            </Link>
         </>
     );
 };

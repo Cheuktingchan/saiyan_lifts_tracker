@@ -71,3 +71,11 @@
     font-family: Monofonto, sans-serif;
     font-size: 1rem;
 }
+
+.analytics {
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+    background-color: transparent;
+    color: black;
+}

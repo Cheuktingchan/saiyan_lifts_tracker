@@ -1,4 +1,5 @@
 import styles from "../styles/ExerciseCard.module.css";
+import homeStyles from "../styles/Home.module.css";
 import { parseISO } from "date-fns";
 import { format } from "date-fns";
 import { FiEdit } from "react-icons/fi";
@@ -124,11 +125,14 @@ const NewExerciseButton = ({
                 </div>
             ) : (
                 <button
-                    className={styles.button}
+                    className={homeStyles.button}
                     style={{
-                        textAlign: "center",
-                        marginTop: "5%",
-                        marginBottom: "5%",
+                        position: "absolute",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        bottom: "0px",
+                        zIndex: "100",
+                        background: "transparent",
                     }}
                     onClick={() => {
                         setIsOpen(true);
@@ -137,8 +141,8 @@ const NewExerciseButton = ({
                     <Image
                         src="/1starball.svg"
                         alt="Logo"
-                        height="100"
-                        width="100"
+                        height="75"
+                        width="75"
                     />
                 </button>
             )}
