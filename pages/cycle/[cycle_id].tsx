@@ -146,7 +146,12 @@ const Workouts = () => {
                             marginBottom: "5%",
                         }}
                     >
-                        Create New<br></br> Workout
+                        <Image
+                            src="/1starball.svg"
+                            alt="Logo"
+                            height="100"
+                            width="100"
+                        />
                     </button>
                 </Link>
             </div>
@@ -157,7 +162,7 @@ const Workouts = () => {
                     </div>
                 ) : (
                     <div className={styles.container}>
-                        <p>Here are your workouts:</p>
+                        <p>Workouts:</p>
                         <WorkoutCards
                             data={workouts}
                             handleDelete={handleDelete}

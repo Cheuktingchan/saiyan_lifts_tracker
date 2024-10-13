@@ -128,7 +128,7 @@ const Exercises = () => {
                     </div>
                 ) : (
                     <div className={styles.container}>
-                        <p>Here are your user exercises:</p>
+                        <p>User exercises:</p>
                         <UserExerciseCards
                             data={exercises}
                             handleDelete={handleDelete}

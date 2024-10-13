@@ -29,7 +29,7 @@ body {
 button {
     border: transparent;
     padding: 0.5rem;
-    border-radius: 3px;
+    border-radius: 5px;
     color-scheme: dark;
     font-family: Monofonto, sans-serif;
     background: #1c4595;
@@ -39,7 +39,7 @@ button {
 input {
     border: 2px 2px black;
     padding: 0.5rem;
-    border-radius: 3px;
+    border-radius: 5px;
     color-scheme: dark;
     font-family: Monofonto, sans-serif;
     background: #b4664f;

@@ -50,7 +50,7 @@
 }
 
 .buttons {
-    border-radius: 0px;
+    border-radius: 5px;
     border-left: 2px solid black;
     border-right: transparent;
     border-bottom: transparent;

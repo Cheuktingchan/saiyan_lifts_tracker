@@ -107,7 +107,12 @@ const Home = () => {
                             marginBottom: "5%",
                         }}
                     >
-                        Create New<br></br> Cycle
+                        <Image
+                            src="/1starball.svg"
+                            alt="Logo"
+                            height="100"
+                            width="100"
+                        />
                     </button>
                 </Link>
             </div>
@@ -118,7 +123,7 @@ const Home = () => {
                     </div>
                 ) : (
                     <div className={styles.container}>
-                        <p>Here are your cycles:</p>
+                        <p>Cycles:</p>
                         <CycleCards
                             data={workouts}
                             handleDelete={handleDelete}

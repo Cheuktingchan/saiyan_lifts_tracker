@@ -10,6 +10,7 @@ import {
 } from "@supabase/auth-helpers-react";
 import { BsTrash } from "react-icons/bs";
 import { useState } from "react";
+import Image from "next/image";
 
 const NewExerciseButton = ({
     userExercises,
@@ -133,7 +134,12 @@ const NewExerciseButton = ({
                         setIsOpen(true);
                     }}
                 >
-                    Create New<br></br> Exercise
+                    <Image
+                        src="/1starball.svg"
+                        alt="Logo"
+                        height="100"
+                        width="100"
+                    />
                 </button>
             )}
         </>

@@ -61,10 +61,17 @@ export default function App({ Component, pageProps }: AppProps) {
                                 border: "0",
                                 right: "20px",
                                 height: "auto",
+                                bottom: "20px",
                             }}
                         >
                             <Link href="/analytics">
-                                <button className={styles.buttons}>
+                                <button
+                                    className={styles.buttons}
+                                    style={{
+                                        right: "20px",
+                                        height: "auto",
+                                    }}
+                                >
                                     <BsBarChart size={35} />
                                 </button>
                             </Link>

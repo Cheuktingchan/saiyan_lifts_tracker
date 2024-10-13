@@ -230,7 +230,7 @@ const Exercises = () => {
                     </div>
                 ) : (
                     <div className={styles.container}>
-                        <p>Here are your exercises:</p>
+                        <p>Exercises:</p>
                         <ExerciseCards
                             data={exercises}
                             handleDelete={handleDelete}
