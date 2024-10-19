@@ -88,51 +88,60 @@ const Home = () => {
     return (
         <>
             <Navbar session={session}></Navbar>
-            {username ? (
-                <div className={styles.container}>
-                    Welcome {username}. Ready to lift?
-                </div>
+            {session ? (
+                <>
+                    {username ? (
+                        <div className={styles.container}>
+                            Welcome {username}. Ready to lift?
+                        </div>
+                    ) : (
+                        <div className={styles.container}>
+                            Welcome lifter. Go to account and enter your
+                            details!
+                        </div>
+                    )}
+                    <div className={styles.container}>
+                        {workouts?.length === 0 ? (
+                            <div>
+                                <p>There are no cycles yet</p>
+                            </div>
+                        ) : (
+                            <div className={styles.container}>
+                                <p>Cycles:</p>
+                                <CycleCards
+                                    data={workouts}
+                                    handleDelete={handleDelete}
+                                />
+                            </div>
+                        )}
+                    </div>
+                    <Link href="/create/new_cycle/">
+                        <button
+                            className={styles.button}
+                            style={{
+                                position: "fixed",
+                                left: "50%",
+                                transform: "translateX(-50%)",
+                                bottom: "0px",
+                                zIndex: "100",
+                                background: "transparent",
+                            }}
+                        >
+                            <Image
+                                src="/1starball.svg"
+                                alt="Logo"
+                                height="75"
+                                width="75"
+                            />
+                        </button>
+                    </Link>
+                </>
             ) : (
                 <div className={styles.container}>
                     Welcome lifter. Go to account and enter your details!
                 </div>
             )}
             <div className={styles.container}></div>
-            <div className={styles.container}>
-                {workouts?.length === 0 ? (
-                    <div>
-                        <p>There are no cycles yet</p>
-                    </div>
-                ) : (
-                    <div className={styles.container}>
-                        <p>Cycles:</p>
-                        <CycleCards
-                            data={workouts}
-                            handleDelete={handleDelete}
-                        />
-                    </div>
-                )}
-            </div>
-            <Link href="/create/new_cycle/">
-                <button
-                    className={styles.button}
-                    style={{
-                        position: "fixed",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        bottom: "0px",
-                        zIndex: "100",
-                        background: "transparent",
-                    }}
-                >
-                    <Image
-                        src="/1starball.svg"
-                        alt="Logo"
-                        height="75"
-                        width="75"
-                    />
-                </button>
-            </Link>
         </>
     );
 };

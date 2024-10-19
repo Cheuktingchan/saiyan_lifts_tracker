@@ -21,14 +21,9 @@ const WorkoutCards = ({
                     style={{ height: "4em" }}
                 >
                     <Link href={`/workout/${item.id}`}>
+                        <p className={styles.title}> {item.title}</p>
                         <p className={styles.title}>
                             {" "}
-                            Workout: {""}
-                            {item.title}
-                        </p>
-                        <p className={styles.title}>
-                            {" "}
-                            Date: {""}
                             {format(parseISO(item.created_at), "dd/MM/yy")}
                         </p>
                     </Link>
@@ -40,7 +35,7 @@ const WorkoutCards = ({
                             left: "0.6rem",
                             top: "0.6rem",
                             border: "2px solid black",
-                            backgroundColor: "red",
+                            backgroundColor: "#e7e5e8",
                             borderRadius: "5px",
                         }}
                         onClick={() => handleDelete(item.id)}

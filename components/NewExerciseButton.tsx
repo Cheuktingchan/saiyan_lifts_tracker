@@ -112,7 +112,7 @@ const NewExerciseButton = ({
                                 left: "0.6rem",
                                 top: "0.6rem",
                                 border: "2px solid black",
-                                backgroundColor: "red",
+                                backgroundColor: "#e7e5e8",
                                 borderRadius: "5px",
                             }}
                             onClick={() => {

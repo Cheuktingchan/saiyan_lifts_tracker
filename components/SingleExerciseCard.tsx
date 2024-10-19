@@ -27,40 +27,37 @@ const SingleExerciseCard = ({
     const [isEditing, setIsEditing] = useState(new Map());
     return (
         <div key={thisExerciseId} className={styles.container}>
-            <p className={styles.title}>
-                {" "}
-                Exercise: {""}
-                {exercise[firstSet.id].title}
-            </p>
+            <p className={styles.title}> {exercise[firstSet.id].title}</p>
             {isOpen && (
-                <>
-                    {Object.keys(exercise)?.map((set) => (
-                        <>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                }}
-                            >
+                <table
+                    style={{
+                        width: "60%",
+                        textAlign: "center",
+                        borderCollapse: "collapse",
+                        fontSize: "1rem",
+                        margin: "20px 0 ",
+                    }}
+                >
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>kg</th>
+                            <th>reps</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {Object.keys(exercise)?.map((set, index) => (
+                            <tr key={set}>
                                 {!isEditing.get(set) ? (
+                                    // Non-editable state (view mode)
                                     <>
-                                        <p
-                                            className={styles.load}
-                                            style={{
-                                                width: "75%",
-                                                height: "5vh",
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            {" "}
-                                            Load (kg):
+                                        <td>{index + 1}</td>
+                                        <td>
                                             <input
                                                 disabled={true}
                                                 style={{
-                                                    width: "20%",
+                                                    width: "80%",
                                                 }}
                                                 type="number"
                                                 name="loads"
@@ -71,11 +68,12 @@ const SingleExerciseCard = ({
                                                     exercise[set]["loads"]
                                                 }
                                             />
-                                            Reps: {""}
+                                        </td>
+                                        <td>
                                             <input
                                                 disabled={true}
                                                 style={{
-                                                    width: "20%",
+                                                    width: "80%",
                                                 }}
                                                 type="number"
                                                 name="reps"
@@ -86,62 +84,57 @@ const SingleExerciseCard = ({
                                                     exercise[set]["reps"]
                                                 }
                                             />
-                                        </p>
-                                        <button
-                                            key={set}
-                                            style={{
-                                                height: "28px",
-                                                width: "28px",
-                                                border: "2px solid black",
-                                                backgroundColor: "red",
-                                                borderRadius: "5px",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                padding: "0px",
-                                                right: "1rem",
-                                                position: "absolute",
-                                            }}
-                                            onClick={() =>
-                                                !isEditing.get(set)
-                                                    ? setIsEditing(
-                                                          (map) =>
-                                                              new Map(
-                                                                  map.set(
-                                                                      set,
-                                                                      true,
+                                        </td>
+                                        <td>
+                                            <button
+                                                key={set}
+                                                style={{
+                                                    height: "28px",
+                                                    width: "28px",
+                                                    border: "2px solid black",
+                                                    backgroundColor: "#e7e5e8",
+                                                    borderRadius: "5px",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    padding: "0px",
+                                                }}
+                                                onClick={() =>
+                                                    !isEditing.get(set)
+                                                        ? setIsEditing(
+                                                              (map) =>
+                                                                  new Map(
+                                                                      map.set(
+                                                                          set,
+                                                                          true,
+                                                                      ),
                                                                   ),
-                                                              ),
-                                                      )
-                                                    : setIsEditing(
-                                                          (map) =>
-                                                              new Map(
-                                                                  map.set(
-                                                                      set,
-                                                                      false,
+                                                          )
+                                                        : setIsEditing(
+                                                              (map) =>
+                                                                  new Map(
+                                                                      map.set(
+                                                                          set,
+                                                                          false,
+                                                                      ),
                                                                   ),
-                                                              ),
-                                                      )
-                                            }
-                                        >
-                                            <FiEdit size={24} color="black" />
-                                        </button>
+                                                          )
+                                                }
+                                            >
+                                                <FiEdit
+                                                    size={24}
+                                                    color="black"
+                                                />
+                                            </button>
+                                        </td>
                                     </>
                                 ) : (
+                                    // Editable state (form mode)
                                     <>
-                                        <div
-                                            key={set}
-                                            style={{
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                            }}
-                                        >
+                                        <td>{index + 1}</td>
+                                        <td>
                                             <form
                                                 id={set}
-                                                style={{
-                                                    width: "75%",
-                                                }}
                                                 onSubmit={(event) => {
                                                     handleSubmit(
                                                         event,
@@ -159,51 +152,38 @@ const SingleExerciseCard = ({
                                                     );
                                                 }}
                                             >
-                                                <p
-                                                    className={styles.load}
+                                                <input
                                                     style={{
-                                                        height: "5vh",
-                                                        display: "flex",
-                                                        justifyContent:
-                                                            "center",
-                                                        alignItems: "center",
+                                                        width: "80%",
                                                     }}
-                                                >
-                                                    {" "}
-                                                    Load (kg):
-                                                    <input
-                                                        style={{
-                                                            width: "20%",
-                                                        }}
-                                                        type="number"
-                                                        name="loads"
-                                                        className={styles.load}
-                                                        autoComplete="on"
-                                                        list="suggestions"
-                                                        defaultValue={
-                                                            exercise[set][
-                                                                "loads"
-                                                            ]
-                                                        }
-                                                    />
-                                                    Reps: {""}
-                                                    <input
-                                                        style={{
-                                                            width: "20%",
-                                                        }}
-                                                        type="number"
-                                                        name="reps"
-                                                        className={styles.reps}
-                                                        autoComplete="on"
-                                                        list="suggestions"
-                                                        defaultValue={
-                                                            exercise[set][
-                                                                "reps"
-                                                            ]
-                                                        }
-                                                    />
-                                                </p>
+                                                    type="number"
+                                                    name="loads"
+                                                    className={styles.load}
+                                                    autoComplete="on"
+                                                    list="suggestions"
+                                                    defaultValue={
+                                                        exercise[set]["loads"]
+                                                    }
+                                                />
                                             </form>
+                                        </td>
+                                        <td>
+                                            <input
+                                                form={set}
+                                                style={{
+                                                    width: "80%",
+                                                }}
+                                                type="number"
+                                                name="reps"
+                                                className={styles.reps}
+                                                autoComplete="on"
+                                                list="suggestions"
+                                                defaultValue={
+                                                    exercise[set]["reps"]
+                                                }
+                                            />
+                                        </td>
+                                        <td>
                                             <button
                                                 type="submit"
                                                 form={set}
@@ -211,28 +191,26 @@ const SingleExerciseCard = ({
                                                     height: "28px",
                                                     width: "28px",
                                                     border: "2px solid black",
-                                                    backgroundColor: "red",
+                                                    backgroundColor: "#e7e5e8",
                                                     borderRadius: "5px",
                                                     display: "flex",
                                                     alignItems: "center",
                                                     justifyContent: "center",
                                                     padding: "0px",
-                                                    right: "1rem",
-                                                    position: "absolute",
                                                 }}
                                             >
                                                 <FiSave
                                                     size={24}
-                                                    color={"black"}
+                                                    color="black"
                                                 />
                                             </button>
-                                        </div>
+                                        </td>
                                     </>
                                 )}
-                            </div>
-                        </>
-                    ))}
-                </>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             )}
             <div
                 style={{
@@ -241,7 +219,7 @@ const SingleExerciseCard = ({
                     left: "0.6rem",
                     top: "0.6rem",
                     border: "2px solid black",
-                    backgroundColor: "red",
+                    backgroundColor: "#e7e5e8",
                     borderRadius: "5px",
                 }}
                 onClick={() => handleDelete(thisExerciseId)}
