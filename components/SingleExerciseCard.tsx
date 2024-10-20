@@ -35,15 +35,15 @@ const SingleExerciseCard = ({
                         textAlign: "center",
                         borderCollapse: "collapse",
                         fontSize: "1rem",
-                        margin: "20px 0 ",
+                        marginBottom: "20px",
                     }}
                 >
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>kg</th>
-                            <th>reps</th>
-                            <th></th>
+                            <th style={{ padding: "10px" }}></th>
+                            <th style={{ padding: "10px" }}>kg</th>
+                            <th style={{ padding: "10px" }}>reps</th>
+                            <th style={{ padding: "10px" }}></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,7 +57,8 @@ const SingleExerciseCard = ({
                                             <input
                                                 disabled={true}
                                                 style={{
-                                                    width: "80%",
+                                                    width: "60%",
+                                                    margin: "auto",
                                                 }}
                                                 type="number"
                                                 name="loads"
@@ -73,7 +74,8 @@ const SingleExerciseCard = ({
                                             <input
                                                 disabled={true}
                                                 style={{
-                                                    width: "80%",
+                                                    width: "60%",
+                                                    margin: "auto",
                                                 }}
                                                 type="number"
                                                 name="reps"
@@ -154,7 +156,8 @@ const SingleExerciseCard = ({
                                             >
                                                 <input
                                                     style={{
-                                                        width: "80%",
+                                                        width: "60%",
+                                                        margin: "auto",
                                                     }}
                                                     type="number"
                                                     name="loads"
@@ -171,7 +174,8 @@ const SingleExerciseCard = ({
                                             <input
                                                 form={set}
                                                 style={{
-                                                    width: "80%",
+                                                    width: "60%",
+                                                    margin: "auto",
                                                 }}
                                                 type="number"
                                                 name="reps"
